@@ -1,0 +1,20 @@
+<mat-toolbar *ngIf="headerData.visible===true" fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column"
+             fxLayout.sm="column">
+  <mat-toolbar-row class="page-info">
+    <button mat-icon-button matTooltip="Agregar registro" (click)="go()" color="primary"
+            *ngIf="!headerData.esFormulario && headerData.btnAgregar && headerData.linkT != undefined">
+      <mat-icon>add_box</mat-icon>
+    </button>
+
+    <button mat-icon-button matTooltip="Volver a la lista" (click)="go()" color="primary"
+            *ngIf="headerData.esFormulario && headerData.linkT != undefined">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="titles-box" fxLayout="column" fxLayoutAlign="center start">
+      <div class="title">
+        {{headerData.titulo}}
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<br/>

@@ -1,0 +1,22 @@
+
+    <div *ngFor="let item of (list | async)">
+        
+            <mat-checkbox>{{item[field]}}</mat-checkbox>
+        
+    </div>
+
+
+<!-- <mat-slide-toggle
+    class="example-margin"
+    color="primary"
+    [checked]="inputBoolean"
+    [disabled]="dis"
+    (change)="changeChecked()">
+    {{txtTitulo}}
+    <span *ngIf="txtFalse && txtTrue">:
+        <span *ngIf="inputBoolean; else estadoT">{{txtTrue}}</span>
+        <ng-template #estadoT>
+            <span>{{txtFalse}}</span>
+        </ng-template>
+    </span>
+</mat-slide-toggle> -->

@@ -1,0 +1,525 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
+        <div class="w-full max-w-screen-xl mx-auto sm:p-2 xs:p-2 md:p-8">
+
+            <app-form-header class="backoffice-page-header"></app-form-header>
+
+            <mat-stepper orientation="vertical" linear="true" #stepper (selectionChange)="getSeccionesVerificadas($event)" [selectedIndex]="indiceActual">
+                <mat-step [stepControl]="fDatosEmpresa" *ngIf="pasosLista.includes(pasosKeys.paso1)">
+                    <form [formGroup]="fDatosEmpresa" class="grid grid-cols-6">
+                        <ng-template matStepLabel color="primary">
+                            <mat-toolbar [ngStyle]="{'background': seccionesVerificadas[0].color}">
+                                Datos de empresa
+                            </mat-toolbar>
+                        </ng-template>
+
+                        <div class="col-span-6 py-4 px-4">
+                            <span>Datos de la empresa, estado: <b>{{ fDatosEmpresa.value.estado }}</b></span>
+                        </div>
+
+                        <div class="col-span-6 py-4 px-4 text-red-500" *ngIf="fDatosEmpresa.invalid">
+                            <span>Debe completar el formulario y cargar los documentos para continuar</span>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <mat-form-field appearance="fill" class="p-4 w-full">
+                                <mat-label>Razón social</mat-label>
+                                <input matInput placeholder="Razón social" formControlName="razonSocial" required [disabled]="fDatosEmpresa.disabled">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <mat-form-field appearance="fill" class="p-4 w-full">
+                                <mat-label>Dirección</mat-label>
+                                <input matInput placeholder="Dirección" formControlName="direccion" required [disabled]="fDatosEmpresa.disabled">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <mat-form-field appearance="fill" class="p-4 w-full">
+                                <mat-label>Tipo de entidad jurídica</mat-label>
+                                <mat-select formControlName="tipoEntidad" required [disabled]="fDatosEmpresa.disabled">
+                                    <mat-option [value]="e.id" *ngFor="let e of tipoEntidadList">
+                                        {{ e.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3"></div>
+
+                        <div class="col-span-6 sm:col-span-6 xs:col-span-6 grid grid-cols-6">
+                            <div class="col-span-6 t-container border-2">
+                                <table mat-table [dataSource]="docRucList" matSort matSortActive="nombre"
+                                    #firmanteTable class="">
+                                    <ng-container matColumnDef="#" sticky>
+                                        <th mat-header-cell *matHeaderCellDef>#</th>
+                                        <td mat-cell *matCellDef="let e"> {{e.numero}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="nombre">
+                                        <th mat-header-cell *matHeaderCellDef class="pl-2">Documento</th>
+                                        <td mat-cell *matCellDef="let e" class="pl-2"> {{e.nombre}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="accion">
+                                        <th mat-header-cell *matHeaderCellDef>Acción</th>
+                                        <td mat-cell *matCellDef="let e">
+                                            <div *ngIf="e.numero === 1">
+                                                <button type="button" mat-raised-button (click)="constitucion.click()"
+                                                    class="mat-raised-button mat-warn" [disabled]="fDatosEmpresa.disabled">
+                                                    {{ fDatosEmpresa.value.ruc ? 'Cambiar' : 'Cargar*'}}
+                                                    <i class="fa fa-check-circle mr-2" aria-hidden="true"
+                                                    *ngIf="fDatosEmpresa.value.ruc"></i>
+                                                </button>
+                                                <input style="display: none;" hidden type="file" #constitucion
+                                                    (change)="subirArchivo($event, 'fDatosEmpresa', 'ruc')"
+                                                    accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg, doc, docx, pdf">
+                                            </div>
+                                            <div *ngIf="e.numero === 2">
+                                                <button type="button" mat-raised-button (click)="acta.click()"
+                                                    class="mat-raised-button mat-warn" [disabled]="fDatosEmpresa.disabled">
+                                                    {{ fDatosEmpresa.controls['cct'].value ? 'Cambiar' : 'Cargar*'}}
+                                                    <i class="fa fa-check-circle mr-2" aria-hidden="true"
+                                                        *ngIf="fDatosEmpresa.value.cct"></i>
+                                                </button>
+                                                <input style="display: none;" hidden type="file" #acta
+                                                    (change)="subirArchivo($event, 'fDatosEmpresa', 'cct')"
+                                                    accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg, doc, docx, pdf">
+                                            </div>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="estado">
+                                        <th mat-header-cell *matHeaderCellDef>Estado</th>
+                                        <td mat-cell *matCellDef="let e">
+                                            {{ e.estado ?? '-' }}
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="ver">
+                                        <th mat-header-cell *matHeaderCellDef>Ver</th>
+                                        <td mat-cell *matCellDef="let e">
+                                            <button mat-icon-button [disabled]="!e.value" color="primary" (click)="verArchivo(e.value)">
+                                                <mat-icon [svgIcon]="'mat_solid:download'"></mat-icon>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+
+
+                                    <tr mat-header-row *matHeaderRowDef="docRucColumns; sticky: true"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: docRucColumns;"></tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2"></div>
+
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2">
+
+                            <div style="text-align: center;" class="pt-10">
+                                <button mat-raised-button color="primary" [disabled]="fDatosEmpresa.invalid" (click)="guardarDatosEmpresa()" matStepperNext>
+                                    Siguiente
+                                    <mat-icon class="ml-2" [svgIcon]="'mat_outline:arrow_forward'"></mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2"></div>
+
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="fFirmante" *ngIf="pasosLista.includes(pasosKeys.paso2)">
+                    <form [formGroup]="fFirmante" class="grid grid-cols-6">
+                        <ng-template matStepLabel>
+                            <mat-toolbar [ngStyle]="{'background': seccionesVerificadas[1].color}">
+                                Datos de Firmantes
+                            </mat-toolbar>
+                        </ng-template>
+
+                        <div class="col-span-6 py-4 px-4">
+                            <span>Datos de firmantes, estado: <b>{{ fFirmante.value.estado }}</b></span>
+                        </div>
+
+                        <div class="col-span-6 py-4 px-4 text-red-500" *ngIf="fFirmante.invalid">
+                            <span>Debe agregar al menos un firmante para continuar</span>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <mat-form-field appearance="fill" class="p-4 w-full">
+                                <mat-label>Nombre y apellido</mat-label>
+                                <input matInput placeholder="Nombre y apellido" formControlName="nombre" [disabled]="fFirmante.disabled">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <mat-form-field appearance="fill" class="p-4 w-full">
+                                <mat-label>Cargo que ocupa</mat-label>
+                                <input matInput placeholder="Cargo que ocupa" formControlName="cargo" [disabled]="fFirmante.disabled">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <div appearance="fill" class="mat-form-field ml-4">
+                                <span class="font-extrabold">Copia de cédula de identidad lado A {{ fFirmante.controls['copiaCedula'].value ? '' : '(vacío)*' }}</span>
+                                <button type="button" mat-raised-button (click)="cedula.click()"
+                                    class="mx-5 mat-raised-button mat-warn" [disabled]="fFirmante.disabled">
+                                    {{ fFirmante.controls['copiaCedula'].value ? 'Cambiar' : 'Cargar archivo*'}}
+                                    <i class="fa fa-check-circle mr-2" aria-hidden="true"
+                                        *ngIf="fFirmante.controls['copiaCedula'].value"></i>
+                                </button>
+                                <input style="display: none;" hidden type="file" #cedula
+                                    (change)="subirArchivo($event, 'fFirmante', 'copiaCedula')"
+                                    accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg, doc, docx, pdf">
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <div appearance="fill" class="mat-form-field ml-4">
+                                <span class="font-extrabold">Copia de cédula de identidad lado B {{ fFirmante.controls['copiaCedulaB'].value ? '' : '(vacío)' }}</span>
+                                <button type="button" mat-raised-button (click)="cedulab.click()"
+                                        class="mx-5 mat-raised-button mat-warn" [disabled]="fFirmante.disabled">
+                                    {{ fFirmante.controls['copiaCedulaB'].value ? 'Cambiar' : 'Cargar archivo'}}
+                                    <i class="fa fa-check-circle mr-2" aria-hidden="true"
+                                       *ngIf="fFirmante.controls['copiaCedulaB'].value"></i>
+                                </button>
+                                <input style="display: none;" hidden type="file" #cedulab
+                                       (change)="subirArchivo($event, 'fFirmante', 'copiaCedulaB')"
+                                       accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg, doc, docx, pdf">
+                            </div>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3"></div>
+
+                        <div class="col-span-6 grid grid-cols-6 pt-10 pb-4 ml-4">
+                            <div class="col-span-3 text-3xl bold pt-2">
+                                Listado de firmantes
+                            </div>
+                            <div class="col-span-3">
+                                <button mat-raised-button class="fuse-mat-button-large" color="primary" [disabled]="!fFirmante.value.copiaCedula"
+                                    (click)="addFirmante()">
+                                    Agregar
+                                    <mat-icon [svgIcon]="'mat_solid:add'"></mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-span-6 grid grid-cols-10">
+                            <div class="col-span-10 t-container border-2">
+                                <!-- <table mat-table [dataSource]="firmanteList" matSort matSortActive="nombre" -->
+                                <table mat-table [dataSource]="fFirmante.controls.lista.value" matSort matSortActive="nombre"
+                                    #firmanteTable>
+                                    <ng-container matColumnDef="nombre" sticky>
+                                        <th mat-header-cell *matHeaderCellDef>Nombre y apellido</th>
+                                        <td mat-cell *matCellDef="let e"> {{e.nombre}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="cargo">
+                                        <th mat-header-cell *matHeaderCellDef> Cargo</th>
+                                        <td mat-cell *matCellDef="let e"> {{e.cargo}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="estado">
+                                        <th mat-header-cell *matHeaderCellDef> Estado</th>
+                                        <td mat-cell *matCellDef="let e"> {{e.estado}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="documentoA">
+                                        <th mat-header-cell *matHeaderCellDef> Lado A</th>
+                                        <td mat-cell *matCellDef="let e">
+                                            <button mat-icon-button color="primary" [disabled]="!e.ci" (click)="verArchivo(e.ci)">
+                                                <mat-icon [svgIcon]="'mat_solid:download'"></mat-icon>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="documentoB">
+                                        <th mat-header-cell *matHeaderCellDef> Lado B</th>
+                                        <td mat-cell *matCellDef="let e">
+                                            <button mat-icon-button color="primary" [disabled]="!e.ciOpcional" (click)="verArchivo(e.ciOpcional)">
+                                                <mat-icon [svgIcon]="'mat_solid:download'"></mat-icon>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="acciones">
+                                        <th mat-header-cell *matHeaderCellDef class="w-10">Acciones</th>
+                                        <td mat-cell *matCellDef="let e" class="w-10">
+                                            <button mat-icon-button (click)="removerFirmante(e)" [disabled]="fFirmante.disabled">
+                                                <mat-icon color="warn">delete</mat-icon>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+
+
+                                    <tr mat-header-row *matHeaderRowDef="firmanteColumns; sticky: true"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: firmanteColumns;"></tr>
+                                </table>
+                                <div class="text-2xl tracking-tight leading-tight ng-tns-c471-46"
+                                    *ngIf="fFirmante.controls.lista?.value?.length === 0">
+                                    <br>
+                                    <h1>Lista de firmantes vacía</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2"></div>
+
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2 grid grid-cols-4 pt-10">
+
+                            <div class="col-span-2 px-2">
+                                <button mat-raised-button color="primary" matStepperPrevious class="w-full">
+                                    <mat-icon class="mr-2" [svgIcon]="'mat_outline:arrow_back'"></mat-icon>
+                                    Atrás
+                                </button>
+                            </div>
+                            <div class="col-span-2 px-2">
+                                <!-- <button mat-raised-button [disabled]="firmanteList.length < 1" color="primary" matStepperNext class="w-full"> -->
+                                <button mat-raised-button [disabled]="fFirmante.invalid" color="primary" matStepperNext class="w-full">
+                                    Siguiente
+                                    <mat-icon class="ml-2" [svgIcon]="'mat_outline:arrow_forward'"></mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2"></div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="fBanco" *ngIf="pasosLista.includes(pasosKeys.paso3)">
+                    <form [formGroup]="fBanco" class="grid grid-cols-6">
+                        <ng-template matStepLabel>
+                            <mat-toolbar [ngStyle]="{'background': seccionesVerificadas[2].color}">
+                                Datos de cuenta bancaria
+                            </mat-toolbar>
+                        </ng-template>
+
+                        <div class="col-span-6 py-4 px-4">
+                            <span>Datos de la cuenta bancaria donde recibirás tus depósitos, estado: <b>{{ fBanco.value.estado }}</b></span>
+                        </div>
+
+                        <div class="col-span-6 py-4 px-4 text-red-500" *ngIf="fBanco.invalid">
+                            <span>Debe completar el formulario para continuar</span>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <mat-form-field appearance="fill" class="p-4 w-full">
+                                <mat-label>Banco</mat-label>
+                                <input matInput placeholder="Banco" formControlName="banco" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <mat-form-field appearance="fill" class="p-4 w-full">
+                                <mat-label>Número de cuenta</mat-label>
+                                <input matInput placeholder="Número de cuenta" formControlName="nroCuenta" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <mat-form-field appearance="fill" class="p-4 w-full">
+                                <mat-label>RUC - CI</mat-label>
+                                <input matInput placeholder="RUC - CI" formControlName="ruc" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3 xs:col-span-3">
+                            <mat-form-field appearance="fill" class="p-4 w-full">
+                                <mat-label>Razón Social</mat-label>
+                                <input matInput placeholder="Razón Social" formControlName="razonSocial" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2"></div>
+
+
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2 grid grid-cols-4 pt-10">
+                            <div class="col-span-2 px-2">
+                                <button mat-raised-button color="primary" matStepperPrevious (click)="guardarDatosBanco()" class="w-full">
+                                    <mat-icon class="mr-2" [svgIcon]="'mat_outline:arrow_back'"></mat-icon>
+                                    Atrás
+                                </button>
+                            </div>
+                            <div class="col-span-2 px-2">
+                                <button mat-raised-button color="primary" matStepperNext [disabled]="fBanco.invalid" (click)="guardarDatosBanco()" class="w-full">
+                                    Siguiente
+                                    <mat-icon class="ml-2" [svgIcon]="'mat_outline:arrow_forward'"></mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2"></div>
+
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="fDocumentos" *ngIf="pasosLista.includes(pasosKeys.paso4)">
+                    <ng-template matStepLabel>
+                        <mat-toolbar [ngStyle]="{'background': seccionesVerificadas[3].color}">
+                            Documentos requeridos
+                        </mat-toolbar>
+                    </ng-template>
+                    <div class="grid grid-cols-1 pb-4">
+                        <span>La carga de documentos es requerida para la verificación de la existencia legal del comercio y serán enviados para su revisión</span>
+                        <span *ngIf="mostrarTextoPlantilla" class="text-amber-500">Este apartado posee plantillas descargables que debe completar para posteriormente adjuntarlo en formato de imagen jpg/png o PDF</span>
+                    </div>
+
+                    <div class="col-span-6 py-4 px-4 text-red-500" *ngIf="fDocumentos.invalid">
+                        <span>Debe cargar los documentos para continuar</span>
+                    </div>
+
+                    <div class="grid grid-cols-10">
+                        <div class="col-span-8 t-container border-2">
+                            <table mat-table [dataSource]="documentoList" matSort matSortActive="nombre"
+                                #firmanteTable class="">
+                                <ng-container matColumnDef="#" sticky>
+                                    <th mat-header-cell *matHeaderCellDef>#</th>
+                                    <td mat-cell *matCellDef="let e"> {{e.nro}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="nombre">
+                                    <th mat-header-cell *matHeaderCellDef class="pl-2">Tipo de documento</th>
+                                    <td mat-cell *matCellDef="let e" class="pl-2"> {{e.nombre}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="plantilla">
+                                    <th mat-header-cell *matHeaderCellDef class="pl-2">Plantilla</th>
+                                    <td mat-cell *matCellDef="let e" class="pl-2">
+
+                                        <button *ngIf="e.template" mat-mini-fab color="primary"
+                                            color="primary" (click)="verArchivo(e.template)" matTooltip="Descargar plantilla para completarla manualmente">
+                                            <mat-icon [svgIcon]="'mat_solid:assignment_returned'"></mat-icon>
+                                        </button>
+
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="accion">
+                                    <th mat-header-cell *matHeaderCellDef>Acción</th>
+                                    <td mat-cell *matCellDef="let e">
+                                        <button type="button" mat-raised-button (click)="btnInput.click()"
+                                                class="mat-raised-button mat-warn" [disabled]="!cargarDocumentos">
+                                                {{ fDocumentos.value[e.cName] ? 'Cambiar' : 'Cargar*'}}
+                                                <i class="fa fa-check-circle mr-2" aria-hidden="true"
+                                                *ngIf="fDocumentos.value[e.cName]"></i>
+                                            </button>
+                                            <input style="display: none;" hidden type="file" #btnInput
+                                                (change)="subirArchivo($event, 'fDocumentos', e.cName)"
+                                                accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg, doc, docx, pdf">
+                                        <!-- <div *ngIf="e.nro === 1">
+                                            <button type="button" mat-raised-button (click)="constitucion.click()"
+                                                class="mat-raised-button mat-warn" [disabled]="!cargarDocumentos">
+                                                {{ fDocumentos.value.copiaConstitucionFirma ? 'Cambiar' : 'Cargar*'}}
+                                                <i class="fa fa-check-circle mr-2" aria-hidden="true"
+                                                *ngIf="fDocumentos.value.copiaConstitucionFirma"></i>
+                                            </button>
+                                            <input style="display: none;" hidden type="file" #constitucion
+                                                (change)="subirArchivo($event, 'fDocumentos', 'copiaConstitucionFirma')"
+                                                accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg, doc, docx, pdf">
+                                        </div>
+                                        <div *ngIf="e.nro === 2">
+                                            <button type="button" mat-raised-button (click)="acta.click()"
+                                                class="mat-raised-button mat-warn" [disabled]="!cargarDocumentos">
+                                                {{ fDocumentos.controls['copiaActaAsamblea'].value ? 'Cambiar' : 'Cargar*'}}
+                                                <i class="fa fa-check-circle mr-2" aria-hidden="true"
+                                                    *ngIf="fDocumentos.value.copiaActaAsamblea"></i>
+                                            </button>
+                                            <input style="display: none;" hidden type="file" #acta
+                                                (change)="subirArchivo($event, 'fDocumentos', 'copiaActaAsamblea')"
+                                                accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg, doc, docx, pdf">
+                                        </div>
+                                        <div *ngIf="e.nro === 3">
+                                            <button type="button" mat-raised-button (click)="poder.click()"
+                                                class="mat-raised-button mat-warn" [disabled]="!cargarDocumentos">
+                                                {{ fDocumentos.controls['copiaPoderRepresentacionFirma'].value ? 'Cambiar' :
+                                                'Cargar*'}}
+                                                <i class="fa fa-check-circle mr-2" aria-hidden="true"
+                                                    *ngIf="fDocumentos.controls['copiaPoderRepresentacionFirma'].value"></i>
+                                            </button>
+                                            <input style="display: none;" hidden type="file" #poder
+                                                (change)="subirArchivo($event, 'fDocumentos', 'copiaPoderRepresentacionFirma')"
+                                                accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg, doc, docx, pdf">
+                                        </div> -->
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="estado">
+                                    <th mat-header-cell *matHeaderCellDef>Estado</th>
+                                    <td mat-cell *matCellDef="let e">
+                                        {{ e.estado ?? '-' }}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="ver">
+                                    <th mat-header-cell *matHeaderCellDef>Ver</th>
+                                    <td mat-cell *matCellDef="let e">
+                                        <button mat-icon-button color="primary" [disabled]="!e.value" (click)="verArchivo(e.value)">
+                                            <mat-icon [svgIcon]="'mat_solid:download'"></mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+
+                                <tr mat-header-row *matHeaderRowDef="documentoColumns; sticky: true"></tr>
+                                <tr mat-row *matRowDef="let row; columns: documentoColumns;"></tr>
+                            </table>
+                            <div class="text-2xl tracking-tight leading-tight ng-tns-c471-46"
+                                *ngIf="firmanteList.length === 0">
+                                <br>
+                                <h1>Lista de documentos vacía</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form [formGroup]="fDocumentos" class="grid grid-cols-6">
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2"></div>
+
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2 grid grid-cols-4 pt-10">
+                            <div class="col-span-2 px-2">
+                                <button mat-raised-button color="primary" matStepperPrevious (click)="guardarDocumentosEmpresa()" class="w-full">
+                                    <mat-icon class="mr-2" [svgIcon]="'mat_outline:arrow_back'"></mat-icon>
+                                    Atrás
+                                </button>
+                            </div>
+                            <div class="col-span-2 px-2">
+                                <button mat-raised-button color="primary" matStepperNext [disabled]="fDocumentos.invalid" (click)="guardarDocumentosEmpresa()" class="w-full">
+                                    Siguiente
+                                    <mat-icon class="ml-2" [svgIcon]="'mat_outline:arrow_forward'"></mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-2 xs:col-span-2"></div>
+
+                    </form>
+
+                </mat-step>
+                <mat-step *ngIf="pasosLista.includes(pasosKeys.paso5)">
+                    <ng-template matStepLabel>
+                        <mat-toolbar [ngStyle]="{'background': seccionesVerificadas[seccionesVerificadas.length-1].color}">
+                            Finalizar
+                        </mat-toolbar>
+                    </ng-template>
+                    <div *ngIf="finalizado">
+                        <div class="text-2xl tracking-tight leading-tight ng-tns-c471-46">
+                            <br>
+                            <div class="items-center w-full">
+                                <h1>Carga finalizada</h1>
+                            </div>
+                        </div>
+                        <span>La carga se encuentra completa, los documendo adjuntos serán verificados por un operador y será notificado cuando su comercio se encuentre disponible para funcionar con Fraccionate</span>
+                        <br>
+                        <br>
+                        <div class="flex gap-x-2">
+                            <button mat-raised-button color="primary" routerLink="/comercio/dashboard">Ir al inicio</button>
+                        </div>
+                    </div>
+                    <div *ngIf="!finalizado">
+                        <div class="text-2xl tracking-tight leading-tight ng-tns-c471-46">
+                            <br>
+                            <div class="items-center w-full">
+                                <h1>Enviar para verificación</h1>
+                            </div>
+                        </div>
+                        <span>Al confirmar el envío para verificación un operador se encargará de verificar los datos de su empresa para que puedas ser verificados, no podrá editar los datos una vez que estos sean aprobados.</span>
+                        <br>
+                        <br>
+                        <div class="flex gap-x-2">
+                            <button mat-raised-button color="accent" (click)="verificarDatos()">Enviar para verificación</button>
+                            <button mat-raised-button color="primary" routerLink="/comercio/dashboard">Ir al inicio</button>
+                        </div>
+                    </div>
+                </mat-step>
+            </mat-stepper>
+        </div>
+    </div>
+</div>

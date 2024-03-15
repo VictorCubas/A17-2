@@ -1,0 +1,79 @@
+<!--
+<app-form-header class="backoffice-page-header"></app-form-header>
+<mat-card>
+  <ng-container [ngTemplateOutlet]="agregarTemplate" *ngIf="!editar"></ng-container>
+  <ng-container [ngTemplateOutlet]="editarTemplate" *ngIf="editar"></ng-container>
+
+  <ng-template #agregarTemplate>
+    <mat-horizontal-stepper linear #stepper class="col-md-8 m-auto">
+      <mat-step [stepControl]="formularioAbs" [editable]="false">
+        <ng-template matStepLabel>Crear Rol</ng-template>
+        <ng-container [ngTemplateOutlet]="rolStep"></ng-container>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Asociar Menú</ng-template>
+        <ng-container [ngTemplateOutlet]="rolPermisoMenuStep"></ng-container>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </ng-template>
+
+  <ng-template #editarTemplate>
+    <ng-container [ngTemplateOutlet]="rolStep"></ng-container>
+  </ng-template>
+
+  <ng-template #rolStep>
+    <div class="form-box">
+      <h3 mat-subheader *ngIf="editar">Editar</h3>
+      <form [formGroup]="formularioAbs">
+
+        <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap="10px"
+             fxLayoutGap.xs="0">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" type="text" placeholder="Ingrese el nombre"
+                   [errorStateMatcher]="macherError">
+            <mat-error *ngIf="f.nombre.hasError('required')">Debe ingresar el nombredel rol.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <input matInput formControlName="descripcion" type="text" placeholder="Ingrese la descripción"
+                   [errorStateMatcher]="macherError">
+            <mat-error *ngIf="f.descripcion.hasError('required')">Debe ingrear una descripción para el rol.</mat-error>
+          </mat-form-field>
+
+        </div>
+        <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap="10px"
+             fxLayoutGap.xs="0">
+
+          <app-finder-autocomplete [dis]="dis" [columna]="['nombre']" [item]="f.modulo.value" [service]="moduloService"
+                                   placeHolder="Módulo" (output)="f.modulo.setValue($event);">
+          </app-finder-autocomplete>
+
+        </div>
+
+
+        <ng-container [ngTemplateOutlet]="rolPermisoMenuStep" *ngIf="editar"></ng-container>
+        <div class="button-box" *ngIf="abm && !editar">
+          <app-form-actions (primaryEmiter)="guardar()" (acentEmiter)="cancelar()"
+                            (warnEmiter)="eliminar(formularioAbs.value)" [hideBtnWarn]="!editar"
+                            [submitted]="submitted">
+          </app-form-actions>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #rolPermisoMenuStep>
+    <mat-divider></mat-divider>
+    <app-rol-permiso-menu-list *ngIf="rolPermisoMenu.rol.id" [dis]="dis" [edit]="edit"
+                               [rolPermisoMenu]="rolPermisoMenu"></app-rol-permiso-menu-list>
+    <div class="button-box" *ngIf="!dis && editar">
+      <app-form-actions (primaryEmiter)="guardar()" (acentEmiter)="cancelar()"
+                        (warnEmiter)="eliminar(formularioAbs.value)" [hideBtnWarn]="!editar" [submitted]="submitted">
+      </app-form-actions>
+    </div>
+  </ng-template>
+</mat-card>
+-->

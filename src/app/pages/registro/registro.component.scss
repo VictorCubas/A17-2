@@ -1,0 +1,45 @@
+@import "../../../assets/css/colores.scss";
+
+.g-fraccionada-outline {
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+  z-index: 1;
+}
+
+.toolbar-space {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  background: linear-gradient(90deg, #031834 50%, #0098c1 100%) !important;
+}
+
+h1,
+h2,
+h3,
+span {
+  color: white !important;
+}
+
+.terminos {
+  color: $accent;
+}
+
+.pagina {
+  // height: 100vh;
+}
+
+.mat-form-field {
+  margin: 10px;
+  min-width: 20rem;
+}
+
+.titulo{
+  color: #002ae3;
+}
+
+.form {
+  background: $primary;
+  padding: 20px;
+}

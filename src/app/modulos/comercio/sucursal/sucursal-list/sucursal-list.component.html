@@ -1,0 +1,104 @@
+<!--<div class="flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <app-form-header class="backoffice-page-header"></app-form-header>
+
+    <div>
+        <app-list-table class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+                        [tableColumns]="tableColumns"
+                        [tableData]="lista"
+                        [serverList]="service"
+                        (editarEmitter)="editar($event)"
+                        (verEmitter)="ver($event)"
+                        [btnBorrar]="true"
+                        (borrarEmitter)="eliminar($event)" [reinicio]="eventsSubject.asObservable()">
+        </app-list-table>
+    </div>
+</div>-->
+
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <app-form-header class="backoffice-page-header"></app-form-header>
+
+    <div>
+        <!-- tabla -->
+        <div>
+            <div class="px-8">
+                <mat-accordion>
+                    <mat-expansion-panel class="filter-style" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon>search</mat-icon>
+                                Cuadro de filtros
+                            </mat-panel-title>
+                            <mat-panel-description *ngIf="!panelOpenState">
+                                <div class="hidden md:block">
+                                    Haga clic para desplegar y acceder a los filtros
+                                </div>
+                            </mat-panel-description>
+                            <mat-panel-description *ngIf="panelOpenState">
+                                <div class="hidden md:block">
+                                    Haga clic para ocultar los filtros.
+                                </div>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-form-field appearance="outline" class="w-full px-2">
+                            <mat-label>Filtro</mat-label>
+                            <input matInput #valorBuscar (keyup)="buscar(valorBuscar.value)">
+                        </mat-form-field>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <br />
+            <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8">
+                <div class="overflow-auto grid">
+                    <table #matTable mat-table [dataSource]="dataSource">
+
+                        <ng-container matColumnDef="nombre">
+                            <th class="p-3" mat-header-cell *matHeaderCellDef>Nombre</th>
+                            <td class="p-3" mat-cell *matCellDef="let e"> {{e.nombre }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="descripcion">
+                            <th class="p-3" mat-header-cell *matHeaderCellDef>Descripción</th>
+                            <td class="p-3" mat-cell *matCellDef="let e"> {{e.descripcion }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="barrio">
+                            <th class="p-3" mat-header-cell *matHeaderCellDef>Barrio</th>
+                            <td class="p-3" mat-cell *matCellDef="let e"> {{e.barrio.nombre }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones" stickyEnd>
+                            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                            <td mat-cell *matCellDef="let e">
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <mat-icon [svgIcon]="'feather:more-horizontal'"></mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="ver(e)">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                        Ver
+                                    </button>
+                                    <button mat-menu-item (click)="editar(e)">
+                                        <mat-icon>edit</mat-icon>
+                                        Editar
+                                    </button>
+                                    <button mat-menu-item (click)="confirmDelete(e.id)">
+                                        <mat-icon>delete</mat-icon>
+                                        Eliminar
+                                    </button>
+                                </mat-menu>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+
+                <mat-paginator [length]="paginacion?.cantidad" [pageSize]="paginacion?.por_pagina" (page)="obtenerDatos($event)"
+                               class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent">
+                </mat-paginator>
+            </div>
+        </div>
+
+    </div>
+</div>

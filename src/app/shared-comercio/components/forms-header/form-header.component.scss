@@ -1,0 +1,57 @@
+//.mat-toolbar-multiple-rows {
+//    min-height: 45px;
+//}
+//
+//.mat-toolbar {
+//    height: 43px;
+//}
+
+// INICIO HEADER PARA PANTALLAS
+
+.page-header {
+  padding: 10px 20px;
+  background: white;
+
+  .page-info {
+    text-align: center;
+    display: flex;
+    width: 100%;
+
+    .back-btn {
+      margin-right: 20px;
+
+      button {
+        mat-icon {
+          font-size: 1.4rem;
+        }
+      }
+    }
+
+    .titles-box {
+      text-align: left;
+
+      .title {
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: white !important;
+      }
+
+      .sub-title {
+        font-size: 0.8rem;
+        color: gray;
+      }
+    }
+  }
+}
+
+.hd-action-btn-container {
+  text-align: center;
+
+  div div {
+    button {
+      margin: 4px;
+      width: 14rem;
+      border-radius: 28px;
+    }
+  }
+}

@@ -1,0 +1,97 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+
+  <!-- Header -->
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <div class="text-lg font-medium">Lista de productos</div>
+    <button mat-icon-button [tabIndex]="-1" (click)="close()">
+      <mat-icon class="text-current" [svgIcon]="'mat_outline:x'"></mat-icon>
+    </button>
+  </div>
+
+  <div class="p-4">
+
+    <div class="grid grid-cols-8 pb-4">
+      <div class="col-span-1 text-center">
+        <div class="border-2 rounded-[50px]" style="width: 60px; height: 60px; padding: 10px">
+<!--          <img style="max-width: 50px !important;" src="https://nissei.com/media/favicon/stores/1/ELS-ORIGINAL.png" alt="">-->
+            <img
+                class="w-full h-full rounded-full"
+                [src]="comercioActual.logo ? comercioActual.logo : '../../../../../assets/images/avatars/market-png-logo.png'"
+                alt="User avatar">
+        </div>
+      </div>
+      <div class="col-span-5 text-4xl pt-2">
+        {{comercioActual.nombre}}
+      </div>
+      <div class="col-span-2 text-right grid grid-cols-2">
+        <div>
+          <div>
+            Adquirido el:
+          </div>
+          <div>
+            Estado:
+          </div>
+        </div>
+        <div>
+          <div>
+            11-01-2022
+          </div>
+          <div class="text-amber-500 font-bold">
+            PENDIENTE
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-progress-bar mode="determinate" style="border-radius: 25px;" value="20">
+    </mat-progress-bar>
+    <div class="grid grid-cols-2">
+        <div class="">Cuota: 2/10</div>
+        <div class="text-right">Vence: 05-07-2022</div>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="codigo">
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> Codigo </th>
+      <td mat-cell *matCellDef="let e"> {{e.codigo}} </td>
+      <td mat-footer-cell *matFooterCellDef> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripción </th>
+      <td mat-cell *matCellDef="let e"> {{e.descripcion}} </td>
+      <td mat-footer-cell *matFooterCellDef> Total Gs.</td>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+      <td mat-cell *matCellDef="let e"> {{e.cantidad}} </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCantidad() }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="monto">
+      <th mat-header-cell *matHeaderCellDef> Importe Gs </th>
+      <td mat-cell *matCellDef="let e"> {{(e.monto * e.cantidad) | number}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | number}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+
+  <br>
+
+</div>
+
+<br>
+
+<div class="flex justify-center">
+  <div mat-dialog-actions>
+    <button mat-raised-button [mat-dialog-close] color="primary">
+      Cerrar
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>

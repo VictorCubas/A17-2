@@ -1,0 +1,18 @@
+ <div class="btn-container">
+    <div class="icono text-center">
+        <mat-icon [inline]="true">error</mat-icon>
+    </div>
+    <br />
+    <mat-card-title class="dialog-title">{{data['titulo']}}</mat-card-title>
+    <br />
+    <mat-card-content class="dialog-title">{{data['menssage']}}</mat-card-content>
+    <br />
+    <mat-card-actions class="text-center">
+        <div>
+            <div class="btn-container">
+                <button mat-raised-button color="accent" (click)="aceptar()">{{textoBtnAceptar}}</button>
+                <button mat-raised-button color="" (click)="cerrar()">{{textoBtnCerrar}}</button>
+            </div>
+        </div>
+    </mat-card-actions>
+</div>

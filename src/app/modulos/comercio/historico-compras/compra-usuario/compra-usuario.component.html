@@ -1,0 +1,151 @@
+<div class="flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent snap-y">
+    <app-loader></app-loader>
+    <app-form-header class="backoffice-page-header"></app-form-header>
+    <div>
+        <div>
+            <form class="grid p-10" [formGroup]="form">
+                <br>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text" placeholder="Ingrese su nombre">
+                        <mat-error *ngIf="form.controls['nombre'].hasError('required')">Debe ingresar el nombre del
+                            usuario.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Apellido</mat-label>
+                        <input matInput formControlName="apellido" type="text" placeholder="Ingrese su apellido">
+                        <mat-error *ngIf="form.controls['apellido'].hasError('required')">Debe ingresar el apellido del
+                            usuario.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field color="accent" appearance="outline" class="w-full px-2">
+                        <mat-label>N° Documento</mat-label>
+                        <input formControlName="documentoNro" matInput placeholder="Ingrese su número de documento">
+                        <mat-error *ngIf="form.controls['documentoNro']?.hasError('required')">
+                            Debe ingresar su N° de documento
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field color="accent" appearance="outline" class="w-full px-2">
+                        <mat-label>N° Celular</mat-label>
+                        <input formControlName="celularNro" matInput placeholder="N° Celular" required>
+                        <mat-error *ngIf="form.controls['celularNro']?.hasError('required')">
+                            Debe ingresar el N° celular
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field color="accent" appearance="outline" class="w-full px-2">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" matInput placeholder="Email">
+                        <mat-error *ngIf="form.controls['email']?.hasError('required')">
+                            Debe ingresar el email
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field color="accent" appearance="outline" class="w-full px-2">
+                        <mat-label>Importe</mat-label>
+                        <input type="number" formControlName="importe" matInput placeholder="Ingrese el importe">
+                        <mat-error *ngIf="form.controls['importe']?.hasError('required')">
+                            Debe ingresar el importe total
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Periodos</mat-label>
+                        <mat-select formControlName="periodos">
+                            <mat-option *ngFor="let c of cuotas" [value]="c">
+                                {{c.periodos + ' cuotas de ' + (c.cuota | number)}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="w-full place-content-center grid">
+                    <div class="button-box">
+                        <button mat-raised-button color="warn" (click)="addProducto()">Agregar Nuevo</button>
+                    </div>
+                    <div class="button-box">
+                        <br>
+                        <h1 color="white">Cantidad de productos ({{ carrito.length }}) </h1>
+                    </div>
+                    <br>
+                </div>
+                <br>
+               <div class="grid overflow-auto">
+                   <table mat-table [dataSource]="carrito" matSort matSortActive="codigo" *ngIf="carrito.length > 0">
+                       <ng-container matColumnDef="codigo">
+                           <th class="p-3" mat-header-cell *matHeaderCellDef> Codigo</th>
+                           <td class="p-3" mat-cell *matCellDef="let e"> {{e.codigo}} </td>
+                           <td class="p-3" mat-footer-cell *matFooterCellDef></td>
+                       </ng-container>
+
+                       <ng-container matColumnDef="descripcion">
+                           <th class="p-3" mat-header-cell *matHeaderCellDef > Descripción</th>
+                           <td class="p-3" mat-cell *matCellDef="let e" > {{e.descripcion}} </td>
+                           <td class="p-3" mat-footer-cell *matFooterCellDef></td>
+                       </ng-container>
+
+                       <ng-container matColumnDef="cantidad">
+                           <th class="p-3" mat-header-cell *matHeaderCellDef> Cantidad</th>
+                           <td class="p-3" mat-cell *matCellDef="let e"> {{e.cantidad}} </td>
+                           <td class="p-3" mat-footer-cell *matFooterCellDef></td>
+                       </ng-container>
+
+                       <ng-container matColumnDef="monto">
+                           <th class="p-3" mat-header-cell *matHeaderCellDef> P. Unit. Gs</th>
+                           <td class="p-3" mat-cell *matCellDef="let e"> {{(e.monto) | number}} </td>
+                           <td class="p-3" mat-footer-cell *matFooterCellDef> Total Gs.</td>
+                       </ng-container>
+
+                       <ng-container matColumnDef="subtotal">
+                           <th class="p-3" mat-header-cell *matHeaderCellDef> Subtotal Gs</th>
+                           <td class="p-3" mat-cell *matCellDef="let e"> {{(e.monto * e.cantidad) | number}} </td>
+                           <td class="p-3" mat-footer-cell *matFooterCellDef> {{getTotalCost() | number}} </td>
+                       </ng-container>
+
+                       <ng-container matColumnDef="acciones" stickyEnd class="w-20">
+                           <th class="p-3" mat-header-cell *matHeaderCellDef class="w-25"> Acciones</th>
+                           <td class="p-3" mat-cell *matCellDef="let e" class="w-25">
+                               <button mat-icon-button (click)="editarProducto(e)" >
+                                   <mat-icon color="warn">edit</mat-icon>
+                               </button>
+                               <button mat-icon-button (click)="removerProducto(e)">
+                                   <mat-icon color="warn">delete</mat-icon>
+                               </button>
+                           </td>
+                           <td mat-footer-cell *matFooterCellDef></td>
+                       </ng-container>
+
+
+                       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+                   </table>
+               </div>
+
+            </form>
+
+        </div>
+    </div>
+    <br>
+
+    <div class="w-full place-content-center grid pb-4">
+        <br>
+        <div class="button-box">
+            <button mat-raised-button color="accent" (click)="sendForm()">
+                Guardar Datos
+            </button>
+
+            <button mat-raised-button routerLink="../../../comercio/ventas">
+                Cancelar
+            </button>
+        </div>
+
+    </div>
+</div>
+

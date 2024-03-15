@@ -1,0 +1,11 @@
+<div class="grid grid-cols-2 gap-4" [ngClass]="{'grid-cols-3': !_hideBtnWarn}">
+    <button *ngIf="!_hideBtnPrimary" mat-raised-button color="accent" type="submit"
+        [class.spinner]="submitted && _spinnerBtnPrimary" [disabled]="submitted || _disabledBtnPrimary"
+        (click)="guardar()">{{labelBtnPrimary}}</button>
+    <button *ngIf="!_hideBtnAcent" mat-raised-button type="submit"
+        [class.spinner]="submitted && _spinnerBtnAcent" [disabled]="submitted || _disabledBtnAcent"
+        (click)="cancelar()">{{labelBtnAcent}}</button>
+    <button *ngIf="!_hideBtnWarn" mat-raised-button color="warn" type="button"
+        [class.spinner]="submitted && _spinnerBtnWarn" [disabled]="submitted || _disabledBtnWarn"
+        (click)="eliminar()">{{labelBtnWarn}}</button>
+</div>

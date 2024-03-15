@@ -1,0 +1,127 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <app-form-header class="backoffice-page-header"></app-form-header>
+ <div>
+     <div>
+         <div class="px-8">
+             <mat-accordion>
+                 <mat-expansion-panel class="filter-style" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                     <mat-expansion-panel-header>
+                         <mat-panel-title>
+                             <mat-icon>search</mat-icon>
+                             Cuadro de filtros
+                         </mat-panel-title>
+                         <mat-panel-description *ngIf="!panelOpenState">
+                             <div class="hidden md:block">
+                                 Haga clic para desplegar y acceder a los filtros
+                             </div>
+                         </mat-panel-description>
+                         <mat-panel-description *ngIf="panelOpenState">
+                             <div class="hidden md:block">
+                                 Haga clic para ocultar los filtros.
+                             </div>
+                         </mat-panel-description>
+                     </mat-expansion-panel-header>
+
+                     <div  class="grid grid-cols-6 gap-6">
+                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                             <mat-form-field appearance="outline" class="w-full px-2">
+                                 <mat-label>Nombre</mat-label>
+                                 <input matInput #nombre (keyup)="buscarCampo('nombre', nombre.value)">
+                             </mat-form-field>
+                         </div>
+
+                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                             <mat-form-field appearance="outline" class="w-full px-2">
+                                 <mat-label>Fecha Solicitud</mat-label>
+                                 <input matInput [matDatepicker]="fechaSolicitud" (dateChange)="buscarCampo('fechaSolicitud', $event.value)">
+                                 <mat-datepicker-toggle matSuffix [for]="fechaSolicitud"></mat-datepicker-toggle>
+                                 <mat-datepicker #fechaSolicitud></mat-datepicker>
+                                 <button *ngIf="filter.fechaSolicitud" matSuffix mat-icon-button aria-label="Clear"
+                                         (click)="clearDate('fechaSolicitud', fechaSolicitud)">
+                                     <mat-icon>close</mat-icon>
+                                 </button>
+                             </mat-form-field>
+
+                         </div>
+
+                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                             <mat-form-field appearance="outline" class="w-full px-2">
+                                 <mat-label>Estado Solicitud</mat-label>
+                                 <mat-select (selectionChange)="buscarCampo('estadoSolicitudId', $event.value)">
+                                     <mat-option *ngFor="let l of estadoList" [value]="l.id">
+                                         {{l.nombre}}
+                                     </mat-option>
+                                 </mat-select>
+                             </mat-form-field>
+                         </div>
+
+
+                     </div>
+
+                 </mat-expansion-panel>
+             </mat-accordion>
+         </div>
+         <br />
+         <div class="tbl-content inventory-grid grid items-center gap-4 py-3 px-6 md:px-8">
+             <div class="overflow-auto grid">
+                 <table mat-table [dataSource]="dataSource" matSort matSortActive="documento">
+
+                     <ng-container matColumnDef="fechaHora">
+                         <th class="p-3" mat-header-cell *matHeaderCellDef> Fecha de Operación </th>
+                         <td class="p-3" mat-cell *matCellDef="let e"> {{e.fechaHora | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="cliente">
+                         <th class="p-3" mat-header-cell *matHeaderCellDef> Cliente </th>
+                         <td class="p-3" mat-cell *matCellDef="let e"> {{e.cliente}} </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="importe">
+                         <th class="p-3" mat-header-cell *matHeaderCellDef> Importe Gs </th>
+                         <td class="p-3" mat-cell *matCellDef="let e"> {{e.importe | number}} </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="estadoSolicitud">
+                         <th class="p-3" mat-header-cell *matHeaderCellDef> Estado de la solicitud </th>
+                         <td class="p-3" mat-cell *matCellDef="let e">
+                             <span class="p-3 rounded-full" [style]="{'background': e.colorEstadoSolicitud}">{{e.estadoSolicitud}}</span>
+                         </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="mensajeCliente">
+                         <th class="p-3" width="270px" mat-header-cell *matHeaderCellDef> Mensaje </th>
+                         <td class="p-3" width="270px"  mat-cell *matCellDef="let e"> {{e.mensajeCliente}} </td>
+                     </ng-container>
+
+                     <ng-container matColumnDef="acciones" stickyEnd>
+                         <th class="p-3" mat-header-cell *matHeaderCellDef> Acciones</th>
+                         <td class="p-3" mat-cell *matCellDef="let e">
+                             <button mat-icon-button [matMenuTriggerFor]="menu">
+                                 <mat-icon [svgIcon]="'feather:more-horizontal'"></mat-icon>
+                             </button>
+                             <mat-menu #menu="matMenu">
+                                 <button mat-menu-item (click)="openDialog(e)">
+                                     <mat-icon>remove_red_eye</mat-icon>
+                                     Ver carrito
+                                 </button>
+                                 <button mat-menu-item (click)="openDialogDatos(e)">
+                                     <mat-icon>edit</mat-icon>
+                                     Datos de Compra
+                                 </button>
+                             </mat-menu>
+                         </td>
+                     </ng-container>
+
+                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                 </table>
+             </div>
+
+             <mat-paginator [length]="paginacion.cantidad" [pageSize]="paginacion.por_pagina" (page)="obtenerDatos($event)"
+                            class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent">
+             </mat-paginator>
+         </div>
+     </div>
+ </div>
+
+</div>

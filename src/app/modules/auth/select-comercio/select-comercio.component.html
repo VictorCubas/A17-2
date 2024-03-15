@@ -1,0 +1,36 @@
+<div class="grid w-full place-content-center overflow-auto text-center">
+
+    <div class="font-bold text-4xl">Bienvenido <span class="text-blue-500">{{ nombreUsuario }}</span></div>
+    <div class="font-medium text-xl">Seleccione el comercio a administrar</div>
+
+    <div class="portrait:hidden">
+
+        <div *ngFor="let e of comercios" class="card p-4 inline-block">
+            <div class="text-center cursor-pointer" (click)="seleccionarComercio(e)">
+                <img class="bg-primary w-40 h-40 p-6 rounded-full" [src]="e.logo ? e.logo : '../../../assets/images/avatars/market-png-logo.png'" alt="Logo de empresa">
+                <div class="mt-4 font-medium">{{ e.nombre }}</div>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <div class="landscape:hidden">
+
+        <div *ngFor="let e of comercios" class="card p-4 inline-block">
+            <div class="text-center cursor-pointer" (click)="seleccionarComercio(e)">
+                <img class="bg-primary w-40 h-40 p-6 rounded-full" [src]="e.logo ? e.logo : '../../../assets/images/avatars/market-png-logo.png'" alt="Logo de empresa" alt="">
+                <div class="mt-4 font-medium">{{ e.nombre }}</div>
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div>
+        <a class="font-medium text-primary-500 cursor-pointer" (click)="nuevoComercio()">Registrar nuevo comercio</a>
+    </div>
+
+
+</div>

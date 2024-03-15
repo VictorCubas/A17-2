@@ -1,0 +1,150 @@
+<div class="flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <app-form-header class="backoffice-page-header"></app-form-header>
+
+    <div class="bg-white px-20">
+
+        <!-- <div class="relative w-24 h-24 rounded-full">
+            <div class="absolute w-24 h-24 rounded-full cursor-pointer hover:bg-white/80" matTooltip="Cambiar logo de comercio" (click)="btnInput.click()">
+                <mat-icon
+                class="w-24 h-24 p-5 opacity-0 rounded-full hover:opacity-100"
+                [svgIcon]="'mat_solid:add_a_photo'" color="primary"></mat-icon>
+            </div>
+            <img
+                class="w-full h-full rounded-full"
+                [src]="logo ? logo : '../../../../assets/images/avatars/market-png-logo.png'"
+                alt="User avatar">
+        </div>
+
+        <div class="flex items-center pt-5">
+            <input style="display: none;" hidden type="file" #btnInput
+                (change)="subirArchivo($event)"
+                accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg">
+        </div> -->
+
+        <form [formGroup]="formularioAbs">
+            <div class="px-4 py-5 sm:p-6">
+                <div class="grid grid-cols-4 gap-6">
+                    <!-- Name field -->
+                    <mat-form-field class="col-span-2">
+                        <mat-label>Nombre del comercio</mat-label>
+                        <input id="name" matInput [formControlName]="'nombre'">
+                        <mat-error *ngIf="formularioAbs.get('nombre').hasError('required')">
+                            El nombre del comercio es requerido
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-span-2">
+                        <mat-label>N° teléfono</mat-label>
+                        <input id="comercioTelefono" matInput [formControlName]="'comercioTelefono'">
+                        <mat-error *ngIf="formularioAbs.get('comercioTelefono').hasError('required')">
+                            Debe ingresar el N° teléfono
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Name field -->
+
+
+                    <!-- Email field -->
+                    <mat-form-field class="col-span-2">
+                        <mat-label>Email del comercio</mat-label>
+                        <input id="comercioEmail" matInput [formControlName]="'comercioEmail'">
+                        <mat-error *ngIf="formularioAbs.get('comercioEmail').hasError('required')">
+                            Email del comercio es requerido
+                        </mat-error>
+                        <mat-error *ngIf="formularioAbs.get('comercioEmail').hasError('comercioEmail')">
+                            Ingrese un email válido
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Name field -->
+                    <mat-form-field class="col-span-2">
+                        <mat-label>Sitio o página web</mat-label>
+                        <input id="web" matInput [formControlName]="'web'">
+                        <mat-error *ngIf="formularioAbs.get('web').hasError('required')">
+                            Debe ingresar el sitio web
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Pagina de facebook -->
+                    <mat-form-field class="col-span-2">
+                        <mat-label>Página de Facebook</mat-label>
+                        <input id="facebook" matInput [formControlName]="'facebook'">
+                    </mat-form-field>
+
+                    <!-- Name field -->
+                    <mat-form-field class="col-span-2">
+                        <mat-label>Página de Instagram</mat-label>
+                        <input id="instagram" matInput [formControlName]="'instagram'">
+                        <mat-error *ngIf="formularioAbs.get('instagram').hasError('required')">
+                            Página de instagram
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Pagina de facebook -->
+                    <mat-form-field class="col-span-2">
+                        <mat-label>Página de Twitter</mat-label>
+                        <input id="twitter" matInput [formControlName]="'twitter'">
+                    </mat-form-field>
+
+                    <mat-form-field class="col-span-2">
+                        <mat-label>Tipo de comercio</mat-label>
+                        <mat-select formControlName="comercioTipoId" required>
+                            <mat-option [value]="e.id" *ngFor="let e of comercioTipoList">
+                                {{ e.nombre }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formularioAbs.controls['comercioTipoId']?.hasError('required')">
+                            Debe seleccionar el tipo de comercio</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-span-2">
+                        <mat-label>RUC</mat-label>
+                        <input id="ruc" matInput [formControlName]="'ruc'" required [pattern]="rucNumberPattern">
+                        <mat-error>
+                            <div *ngFor="let e of rucErrorsMsg">
+                                    <span
+                                        *ngIf="formularioAbs.controls['ruc']?.hasError(e.type) && (formularioAbs.controls['ruc']?.dirty || formularioAbs.controls['ruc']?.touched)">
+                                        {{ e.message }}
+                                    </span>
+                            </div>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div class="mat-form-field col-span-2 flex">
+                        <div class="relative w-24 h-24 rounded-full">
+                            <div class="absolute w-24 h-24 rounded-full cursor-pointer hover:bg-white/80" matTooltip="Cambiar logo de comercio" (click)="btnInput.click()">
+                                <mat-icon
+                                class="w-24 h-24 p-5 opacity-0 rounded-full hover:opacity-100"
+                                [svgIcon]="'mat_solid:add_a_photo'" color="primary"></mat-icon>
+                            </div>
+                            <img
+                                class="w-full h-full rounded-full"
+                                [src]="logo ? logo : '../../../../assets/images/avatars/market-png-logo.png'"
+                                alt="User avatar">
+                            </div>
+
+                            <div class="pt-10 px-4">Logo de comercio</div>
+
+                        <div class="flex items-center pt-5" disabled="dis">
+                            <input style="display: none;" hidden type="file" #btnInput
+                                (change)="subirArchivo($event)"
+                                accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+        <div class="w-full place-content-center grid pt-5">
+            <button class="fuse-mat-button-large" mat-flat-button [color]="'primary'"
+                [disabled]="formularioAbs.disabled" (click)="sendForm()">
+                <span>
+                    {{ editar ? 'Actualizar comercio' : 'Registrar comercio'}}
+                </span>
+                <!-- <mat-icon *ngIf="!formularioAbs.disabled">arrow_forward</mat-icon> -->
+                <mat-progress-spinner *ngIf="formularioAbs.disabled" [diameter]="24" [mode]="'indeterminate'">
+                </mat-progress-spinner>
+            </button>
+        </div>
+    </div>
+</div>

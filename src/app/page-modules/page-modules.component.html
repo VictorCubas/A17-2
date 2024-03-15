@@ -1,0 +1,41 @@
+<div class="page-module">
+
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+        <img src="../../assets/img/logo-fraccionate.svg">
+    </div>
+
+    <br>
+    <br>
+    <div class="title-box" fxLayout="row" fxLayoutAlign="space-around center">
+        <!-- <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-around center"> -->
+            <h1>SELECCIONE EL MÓDULO </h1>
+        <!-- </mat-toolbar> -->
+
+    </div>
+
+    <br>
+    <br>
+
+    <div fxlayout="row" fxLayoutAlign="space-around center">
+
+        <div *ngFor="let l of list" class="module-box mat-elevation-z3">
+
+            <div fxLayout="column" fxLayoutAlign="center center">
+
+                <mat-icon class="icon-style" color="warn">
+                    home_work
+                </mat-icon>
+
+                <br>
+
+                <h1>{{l.modulo.toUpperCase()}}</h1>
+
+                <button mat-fab color="accent" (click)="goModule(l)" matTooltip="Acceder">
+                    <mat-icon>
+                        forward
+                    </mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

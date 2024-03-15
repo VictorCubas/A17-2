@@ -1,0 +1,84 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <app-form-header class="backoffice-page-header"></app-form-header>
+    <div>
+
+        <div class="overflow-auto">
+
+            <div [formGroup]="form" class="place-content-center md:px-20">
+
+                <div class="grid md:grid-cols-2">
+
+                    <div>
+
+                        <mat-form-field color="accent" appearance="outline" class="w-90 px-2">
+                            <mat-label>Tipo de documento</mat-label>
+                            <mat-select formControlName="tipo" required>
+                                <mat-option [value]="e.id" *ngFor="let e of tipoDocumentoList" [matTooltip]="e.nombre">
+                                    {{ e.nombre }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="form.controls['tipo']?.hasError('required')">
+                                Debe seleccionar el tipo de documento</mat-error>
+                        </mat-form-field>
+
+
+                        <div class="w-90 px-2">
+                            <button type="button" mat-raised-button (click)="imgFileInput.click()"
+                                class="mat-raised-button mat-warn">
+                                {{ f['file'].value ? 'Cambiar archivo' : 'Cargar archivo'}}
+                                <i class="fa fa-check-circle mr-2" aria-hidden="true" *ngIf="f['file'].value"></i>
+                            </button>
+                            <input style="display: none;" hidden type="file" #imgFileInput
+                                (change)="subirArchivo($event)"
+                                accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg, doc, docx, pdf">
+                        </div>
+                    </div>
+
+                    <div *ngIf="f['file'].value" class="max-w-xs">
+
+                        <div class="pl-10 pt-10">
+                            <h2>Archivo Cargado</h2>
+                            <h3>{{f['file'].value.name}}</h3>
+                        </div>
+
+                        <img *ngIf="preview" class="p-10" [src]="preview">
+                        <div *ngIf="!preview" class="preview-icon">
+                            <mat-icon color="warn" *ngIf="f['file'].value.type.includes('pdf')">picture_as_pdf
+                            </mat-icon>
+                            <mat-icon color="warn"
+                                *ngIf="f['file'].value.type.includes('zip') || f['file'].value.type.includes('rar')">
+                                folder_zip
+                            </mat-icon>
+                            <mat-icon color="warn"
+                                *ngIf="!f['file'].value.type.includes('zip') && !f['file'].value.type.includes('rar') && !f['file'].value.type.includes('pdf')">
+                                file_present</mat-icon>
+                        </div>
+
+                    </div>
+                    <div *ngIf="!f['file']" class="max-w-xs">
+
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="flex justify-center p-5">
+                    <div class="w-90 grid grid-cols-2 gap-4">
+
+                        <button mat-raised-button color="accent" (click)="sendForm()">
+                            Guardar
+                        </button>
+
+                        <button mat-raised-button routerLink="../../../comercio/documentos">
+                            Cancelar
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

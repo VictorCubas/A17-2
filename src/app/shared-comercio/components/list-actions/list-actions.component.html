@@ -1,0 +1,51 @@
+<!--<button color="accent" mat-icon-button matTooltip="Seleccionar" (click)="check()" *ngIf="this.btnChec" [disabled]="dis"-->
+<!--        [title]="btnChecTitle">-->
+<!--    <mat-icon>check-circle</mat-icon>-->
+<!--</button>-->
+<!--<button color="accent" mat-icon-button matTooltip="Agregar" (click)="agregar()" *ngIf="this.btnAgregar" [disabled]="dis">-->
+<!--    <mat-icon>add</mat-icon>-->
+<!--</button>-->
+<!--<button color="accent" mat-icon-button matTooltip="Ver" (click)="ver()" *ngIf="this.btnVer" [disabled]="dis">-->
+<!--    <mat-icon>remove_red_eye</mat-icon>-->
+<!--</button>-->
+<!--<button color="accent" mat-icon-button matTooltip="Editar" (click)="editar()" *ngIf="this.btnEditar" [disabled]="dis">-->
+<!--    <mat-icon>edit</mat-icon>-->
+<!--</button>-->
+<!--<button color="warn" mat-icon-button matTooltip="Eliminar" (click)="borrar()" *ngIf="this.btnBorrar" [disabled]="dis">-->
+<!--    <mat-icon>delete</mat-icon>-->
+<!--</button>-->
+<!--<button color="accent" mat-icon-button matTooltip="" (click)="imprimir()" *ngIf="this.btnImprimir" [disabled]="dis"-->
+<!--        [title]="btnImprimirTitle">-->
+<!--    <mat-icon>print</mat-icon>-->
+<!--</button>-->
+<div *ngIf="btnOptionList; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_horizontal</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="ver()">
+      <mat-icon>remove_red_eye</mat-icon>
+      Ver
+    </button>
+    <button mat-menu-item (click)="editar()">
+      <mat-icon>edit</mat-icon>
+      Editar
+    </button>
+    <button mat-menu-item (click)="borrar()">
+      <mat-icon>delete</mat-icon>
+      Eliminar
+    </button>
+  </mat-menu>
+</ng-template>
+<ng-template #elseBlock>
+  <button mat-icon-button (click)="ver()" matTooltip="Ver" matTooltipPosition="above">
+    <mat-icon>remove_red_eye</mat-icon> 
+  </button>
+  <button mat-icon-button (click)="editar()" matTooltip="Editar" matTooltipPosition="above">
+    <mat-icon>edit</mat-icon>   
+  </button>
+  <button mat-icon-button (click)="borrar()" matTooltip="Eliminar" matTooltipPosition="above">
+    <mat-icon>delete</mat-icon>   
+  </button>
+</ng-template>

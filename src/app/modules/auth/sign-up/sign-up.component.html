@@ -1,0 +1,295 @@
+<div class="grid w-full place-content-center overflow-auto">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 px-6">
+        <!-- Title -->
+        <div class="mb-4">
+            <div class="mt-8 text-3xl font-extrabold tracking-tight leading-tight">Registrar mi comercio</div>
+            <div class="flex items-baseline font-medium">
+                <div>Ya tienes una cuenta?</div>
+                <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-in']">Iniciar Sesión
+                </a>
+            </div>
+        </div>
+        <!-- Logo -->
+        <div class="text-end w-full">
+            <!-- <img src="assets/images/logo/logo-fraccionate.svg"> -->
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Alert -->
+    <fuse-alert class="" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+        [@shake]="alert.type === 'error'">
+        {{alert.message}}
+    </fuse-alert>
+
+    <div>
+        <mat-stepper linear>
+
+            <mat-step [stepControl]="comercioForm" label="Registro del Comercio">
+
+                <form [formGroup]="comercioForm">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-2">
+                            <!-- Name field -->
+                            <mat-form-field class="w-full px-2">
+                                <mat-label>Nombre del comercio</mat-label>
+                                <input id="name" matInput [formControlName]="'nombre'">
+                                <mat-error *ngIf="comercioForm.get('nombre').hasError('required')">
+                                    El nombre del comercio es requerido
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="w-full px-2">
+                                <mat-label>N° teléfono</mat-label>
+                                <input id="comercioTelefono" matInput [formControlName]="'comercioTelefono'">
+                                <mat-error *ngIf="comercioForm.get('comercioTelefono').hasError('required')">
+                                    Debe ingresar el N° teléfono
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Name field -->
+
+
+                            <!-- Email field -->
+                            <mat-form-field class="w-full px-2">
+                                <mat-label>Email del comercio</mat-label>
+                                <input id="comercioEmail" matInput [formControlName]="'comercioEmail'">
+                                <mat-error *ngIf="comercioForm.get('comercioEmail').hasError('required')">
+                                    Email del comercio es requerido
+                                </mat-error>
+                                <mat-error *ngIf="comercioForm.get('comercioEmail').hasError('comercioEmail')">
+                                    Ingrese un email válido
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Name field -->
+                            <mat-form-field class="w-full px-2">
+                                <mat-label>Sitio o página web</mat-label>
+                                <input id="web" matInput [formControlName]="'web'">
+                                <mat-error *ngIf="comercioForm.get('web').hasError('required')">
+                                    Debe ingresar el sitio web
+                                </mat-error>
+                            </mat-form-field>
+                            <!-- Pagina de facebook -->
+                            <mat-form-field class="w-full px-2">
+                                <mat-label>Página de Facebook</mat-label>
+                                <input id="facebook" matInput [formControlName]="'facebook'">
+                            </mat-form-field>
+
+                            <!-- Name field -->
+                            <mat-form-field class="w-full px-2">
+                                <mat-label>Página de Instagram</mat-label>
+                                <input id="instagram" matInput [formControlName]="'instagram'">
+                                <mat-error *ngIf="comercioForm.get('instagram').hasError('required')">
+                                    Página de instagram
+                                </mat-error>
+                            </mat-form-field>
+                            <!-- Pagina de facebook -->
+                            <mat-form-field class="w-full px-2">
+                                <mat-label>Página de Twitter</mat-label>
+                                <input id="twitter" matInput [formControlName]="'twitter'">
+                            </mat-form-field>
+
+                            <mat-form-field class="w-full px-2">
+                                <mat-label>Tipo de comercio</mat-label>
+                                <mat-select formControlName="comercioTipoId" required>
+                                    <mat-option [value]="e.id" *ngFor="let e of comercioTipoList">
+                                        {{ e.nombre }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="comercioForm.controls['comercioTipoId']?.hasError('required')">
+                                    Debe seleccionar el tipo de comercio</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="w-full px-2">
+                                <mat-label>RUC</mat-label>
+                                <input id="ruc" matInput [formControlName]="'ruc'" required [pattern]="rucNumberPattern">
+                                <mat-error>
+                                    <div *ngFor="let e of rucErrorsMsg">
+                                    <span
+                                        *ngIf="comercioForm.controls['ruc']?.hasError(e.type) && (comercioForm.controls['ruc']?.dirty || comercioForm.controls['ruc']?.touched)">
+                                        {{ e.message }}
+                                    </span>
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <div class="mat-form-field flex">
+                                <div class="relative w-24 h-24 rounded-full">
+                                    <div class="absolute w-24 h-24 rounded-full cursor-pointer hover:bg-white/80"
+                                        matTooltip="Cambiar logo de comercio" (click)="btnInput.click()">
+                                        <mat-icon class="w-24 h-24 p-5 opacity-0 rounded-full hover:opacity-100"
+                                            [svgIcon]="'mat_solid:add_a_photo'" color="primary"></mat-icon>
+                                    </div>
+                                    <img class="w-full h-full rounded-full"
+                                        [src]="logo ? logo : '../../../../assets/images/avatars/market-png-logo.png'"
+                                        alt="User avatar">
+                                </div>
+
+                                <div class="pt-10 px-4">Adjuntar logo</div>
+
+                                <div class="flex items-center pt-5">
+                                    <input style="display: none;" hidden type="file" #btnInput
+                                        (change)="subirArchivo($event)"
+                                        accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+
+                <div class="w-full place-content-center grid">
+                    <button class="fuse-mat-button-large" matStepperNext mat-flat-button [color]="'primary'"
+                        [disabled]="comercioForm.disabled">
+                        <span *ngIf="!comercioForm.disabled">
+                            Siguiente
+                        </span>
+                        <mat-icon *ngIf="!comercioForm.disabled">arrow_forward</mat-icon>
+                        <mat-progress-spinner *ngIf="comercioForm.disabled" [diameter]="24" [mode]="'indeterminate'">
+                        </mat-progress-spinner>
+                    </button>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="comercioForm" label="Mis Datos">
+
+                <!-- Sign Up form -->
+                <form [formGroup]="usuarioForm">
+
+                    <div class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-2">
+                        <!-- Name field -->
+                        <mat-form-field class="w-full px-2">
+                            <mat-label>Nombre</mat-label>
+                            <input id="nombrePersona" matInput [formControlName]="'nombrePersona'">
+                            <mat-error *ngIf="usuarioForm.get('nombrePersona').hasError('required')">
+                                Ingrese su nombre
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- apellido field -->
+                        <mat-form-field class="w-full px-2">
+                            <mat-label>Apellido</mat-label>
+                            <input id="apellidoPersona" matInput [formControlName]="'apellidoPersona'">
+                            <mat-error *ngIf="usuarioForm.get('apellidoPersona').hasError('required')">
+                                Debe ingresar su apellido
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- documento field -->
+                        <mat-form-field class="w-full px-2">
+                            <mat-label>N° de documento</mat-label>
+                            <input id="usuario" matInput [formControlName]="'usuario'">
+                            <mat-error *ngIf="usuarioForm.get('usuario').hasError('required')">
+                                Ingrese su N° de documento
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- Email field -->
+                        <mat-form-field class="w-full px-2">
+                            <mat-label>Email</mat-label>
+                            <input id="email" matInput [formControlName]="'email'">
+                            <mat-error *ngIf="usuarioForm.get('email').hasError('required')">
+                                Debe ingrese su email
+                            </mat-error>
+                            <mat-error *ngIf="usuarioForm.get('email').hasError('email')">
+                                Debe ingresar un email válido
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- telefono field -->
+                        <mat-form-field class="w-full px-2">
+                            <mat-label>N° Teléfono</mat-label>
+                            <input id="telefono" matInput [formControlName]="'telefono'">
+                            <mat-error *ngIf="usuarioForm.get('telefono').hasError('required')">
+                                Debe ingresar el sitio web
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- fecha nacimiento field -->
+                        <mat-form-field class="w-full px-2">
+                            <mat-label>Fecha de Nacimiento</mat-label>
+                            <input formControlName="fechaNacimiento" #fecha matInput [matDatepicker]="picker" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="usuarioForm.controls['fechaNacimiento']?.hasError('required')">
+                                Debe ingresar la fecha de nacimiento</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </form>
+
+                <form [formGroup]="repForm" action="">
+
+                    <div class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-2">
+
+                        <mat-form-field class="w-full px-2">
+                            <mat-label>Contraseña</mat-label>
+                            <input #new formControlName="password" matInput [type]="hidePass ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hidePass = !hidePass"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
+                                <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error>
+                                <div *ngFor="let e of errorsPassMsg">
+                                    <span
+                                        *ngIf="repForm.get('password')?.hasError(e.type) && (repForm.get('password')?.dirty || repForm.get('password')?.touched)">
+                                        {{ e.message }}
+                                    </span>
+                                </div>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="w-full px-2">
+                            <mat-label>Repetir contraseña</mat-label>
+                            <input #rep formControlName="passwordRep" matInput
+                                [type]="hideRepeat ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hideRepeat = !hideRepeat"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeat">
+                                <mat-icon>{{hideRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error>
+                                <div *ngFor="let e of errorsRepMsg">
+                                    <span
+                                        *ngIf="(repForm.get('passwordRep')?.hasError(e.type) || repForm.hasError(e.type)) && (repForm.get('passwordRep')?.dirty || repForm.get('passwordRep')?.touched)">
+                                        {{ e.message }}
+                                    </span>
+                                </div>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="place-content-center grid">
+                            <mat-checkbox #aceptarTerminos [color]="'primary'">
+                                <span>Acepto los</span>
+                                <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['../']">Términos y
+                                    Condiciones
+                                </a>
+                                <!-- <span>and</span>
+                                <a
+                                    class="ml-1 text-primary-500 hover:underline"
+                                    [routerLink]="['./']">Privacy Policy
+                                </a> -->
+                            </mat-checkbox>
+                        </div>
+                        <br>
+                    </div>
+
+                </form>
+
+                <div class="w-full place-content-center grid">
+                    <button class="fuse-mat-button-large mt-6" matStepperNext mat-flat-button [color]="'primary'"
+                        (click)="signUp(aceptarTerminos.checked)">
+                        <span *ngIf="!comercioForm.disabled">
+                            Registrarme
+                        </span>
+                        <mat-icon *ngIf="!comercioForm.disabled">check</mat-icon>
+                        <mat-progress-spinner *ngIf="comercioForm.disabled" [diameter]="24" [mode]="'indeterminate'">
+                        </mat-progress-spinner>
+                    </button>
+                </div>
+            </mat-step>
+        </mat-stepper>
+    </div>
+</div>

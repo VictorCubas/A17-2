@@ -1,0 +1,36 @@
+@import "../../../../../assets/css/colores.scss";
+
+.form {
+  background: $primary;
+  padding: 20px;
+}
+
+h1,
+h2,
+h3 {
+  color: #fff;
+}
+
+.mat-form-field {
+  margin: 10px;
+  min-width: 20rem;
+}
+
+button {
+  margin: 0 10px;
+}
+
+.preview-icon {
+
+  width: 100%;
+  text-align: center;
+
+  mat-icon {
+    font-size: 6rem;
+    width: 6rem;
+  }
+}
+
+img {
+  width: 25vw;
+}

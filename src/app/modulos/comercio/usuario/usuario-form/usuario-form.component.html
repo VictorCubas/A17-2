@@ -1,0 +1,138 @@
+<div class="flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <app-form-header class="backoffice-page-header"></app-form-header>
+    <div>
+        <div>
+
+            <form [formGroup]="formularioAbs">
+                <br>
+                <div class="px-4 py-5 bg-white sm:p-6">
+                    <div class="grid grid-cols-6 gap-6">
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <mat-form-field appearance="outline" class="w-full  px-2">
+                                <mat-label>Nombre</mat-label>
+                                <input matInput formControlName="nombre" type="text" placeholder="Ingrese su nombre"
+                                       [errorStateMatcher]="macherError">
+                                <mat-error *ngIf="f['nombre'].hasError('required')">Debe ingresar el nombre del
+                                    usuario.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                       <div class="col-span-6 sm:col-span-3">
+                           <mat-form-field appearance="outline" class="w-full px-2">
+                               <mat-label>Apellido</mat-label>
+                               <input matInput formControlName="apellido" type="text" placeholder="Ingrese su apellido"
+                                      [errorStateMatcher]="macherError">
+                               <mat-error *ngIf="f['apellido'].hasError('required')">Debe ingresar el apellido del
+                                   usuario.
+                               </mat-error>
+                           </mat-form-field>
+                       </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <mat-form-field appearance="outline" class="w-full px-2">
+                                <mat-label>N° Documento</mat-label>
+                                <input matInput formControlName="username" type="number"
+                                       placeholder="Ingrese su número de documento" [errorStateMatcher]="macherError">
+                                <mat-error *ngIf="f['username'].hasError('required')">Debe ingresar su número de documento.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <mat-form-field appearance="outline" *ngIf="!edit" class="w-full px-2">
+                                <mat-label>Contraseña</mat-label>
+                                <input matInput formControlName="password" placeholder="Ingrese la contraseña"
+                                       [readonly]="editar" [type]="hidePass ? 'text' : 'password'"
+                                       [errorStateMatcher]="macherError">
+                                <mat-icon matSuffix color="accent" (click)="hidePass = !hidePass" type="button" tabindex="-1"
+                                          [matTooltip]="hidePass ? 'Ocultar Contraseña' : 'Mostrar Contraseña'">
+                                    {{ hidePass ? 'visibility' : 'visibility_off' }}</mat-icon>
+                                <mat-error *ngIf="f['password'].hasError('required')">Debe ingresar una contraseña.</mat-error>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <div *ngIf="edit" class="mat-form-field">
+                                <button [disabled]="dis" mat-flat-button color="accent"
+                                        (click)="restaurarPassword()">Restaurar
+                                    Contraseña</button>
+                            </div>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <mat-form-field appearance="outline" class="w-full px-2">
+                                <mat-label>Correo Electrónico</mat-label>
+                                <input matInput formControlName="email" type="text" placeholder="Ingrese el correo electrónico"
+                                       [errorStateMatcher]="macherError">
+                                <mat-error *ngIf="f['email'].hasError('required')">Debe ingresar el correo electrónico del
+                                    usuario.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <mat-form-field appearance="outline" class="w-full px-2">
+                                <mat-label>Fecha de Nacimiento</mat-label>
+                                <input formControlName="fechaNacimiento" #fecha matInput [matDatepicker]="picker" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngIf="f['fechaNacimiento'].hasError('required')">
+                                    Debe ingresar la fecha de nacimiento</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <mat-form-field appearance="outline" class="w-full px-2">
+                                <mat-label>Seleccione el Rol</mat-label>
+                                <mat-select formControlName="rolId" required>
+                                    <mat-option [value]="e.id" *ngFor="let e of rolList">
+                                        {{ e.nombre }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="f['rolId'].hasError('required')">Rol del usuario requerido.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <div class="mat-form-field"
+                                 style="text-align: center; min-width: 258px">
+                                <app-my-slide-togle *ngIf="editar" [dis]="dis" txtTitulo="Activo" txtTrue="Si" txtFalse="No"
+                                                    [inputBoolean]="f['activo'].value" (outputBolean)="f['activo'].setValue($event)">
+                                </app-my-slide-togle>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+            <ng-container [ngTemplateOutlet]="usuarioRolStep" *ngIf="editar"></ng-container>
+            <div class="w-full place-content-center grid" *ngIf="abm && !editar">
+                <app-form-actions (primaryEmiter)="guardar()" labelBtnPrimary="Guardar" (acentEmiter)="cancelar()"
+                                  (warnEmiter)="eliminar(formularioAbs.value)" [hideBtnWarn]="!editar" [submitted]="submitted">
+                </app-form-actions>
+            </div>
+
+        </div>
+
+        <ng-template #usuarioRolStep>
+            <div class="form">
+                <br>
+                <div class="w-full place-content-center grid" *ngIf="!dis && editar">
+                    <app-form-actions (primaryEmiter)="guardar()" (acentEmiter)="cancelar()"
+                        (warnEmiter)="eliminar(formularioAbs.value)" [hideBtnWarn]="!editar" [submitted]="submitted">
+                    </app-form-actions>
+                </div>
+                <div class="w-full place-content-center grid" *ngIf="!editar">
+                    <app-form-actions (primaryEmiter)="guardar()" (acentEmiter)="cancelar()" [hideBtnAcent]="true"
+                        [hideBtnWarn]="!editar" [submitted]="submitted">
+                    </app-form-actions>
+                </div>
+            </div>
+        </ng-template>
+        <br>
+    </div>
+</div>

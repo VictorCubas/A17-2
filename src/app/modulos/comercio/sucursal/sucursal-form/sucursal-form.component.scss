@@ -1,0 +1,76 @@
+/*
+@import "../../../../../assets/css/colores.scss";
+mat-card {
+  margin: 0 20px;
+  //   background: $primary;
+}
+
+form {
+  background: $primary;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+span {
+  // color: white;
+}
+
+.field-button {
+  margin-top: 5px;
+  padding: 0 28px;
+  min-width: 360 px;
+  width: 100%;
+}
+
+.mat-input-element{
+  color: white;
+}
+
+.mat-form-field-appearance-fill.mat-form-field-disabled {
+  .mat-form-field-label {
+    color: rgba(201, 31, 178, 0.904) !important;
+  }
+  .mat-form-field-flex {
+    background-color: rgba(241, 23, 23, 0.04);
+  }
+}
+
+.create-account-form {
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: $accent;
+  }
+  !*.mat-focused .mat-form-field-ripple {
+    !*change color of underline when focused*!
+    background-color: $accent !important;
+  }
+  .mat-focused .mat-form-field-label {
+    !*change color of label when focused*!
+    color: $accent !important;
+  }
+
+  .mat-form-field.mat-focused .mat-form-field-label .mat-form-field-outline {
+    color: $accent;
+  }*!
+}
+!*
+.mat-form-field-appearance-outline {
+  .mat-form-field-label {
+    color: $accent !important;
+  } .mat-form-field-outline
+      {
+        color: $accent;
+      }
+}
+.mat-form-field-appearance-outline.mat-form-field-disabled {
+  .mat-form-field-label {
+    color: $accent !important;
+  } .mat-form-field-outline {
+        color: $accent; } }
+
+*!
+*/
+#map {
+    height: 400px;
+    width: 100%;
+    //max-width: 600px;
+}

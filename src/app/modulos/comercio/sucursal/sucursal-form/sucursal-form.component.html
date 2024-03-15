@@ -1,0 +1,415 @@
+<!--<div class="flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <app-form-header class="backoffice-page-header"></app-form-header>
+    <div>
+        <div>
+            <div>
+                &lt;!&ndash;        <h3 mat-subheader *ngIf="editar">Editar</h3>&ndash;&gt;
+
+                <form class="place-content-center grid" [formGroup]="formularioAbs">
+
+                    <br>
+                    <div class="flex-wrap w-180">
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombre" type="text"
+                                placeholder="Ingrese el nombre de la sucursal" [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['nombre'].hasError('required')">Debe ingresar el nombre de la sucursal
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Nro Sucursal</mat-label>
+                            <input matInput formControlName="nro_sucursal" type="number"
+                                placeholder="Ingrese su nro sucursal" [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['nro_sucursal'].hasError('required')">Debe ingresar el nro sucursal
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Cod. Sucursal</mat-label>
+                            <input matInput formControlName="cod_sucursal" type="number"
+                                placeholder="Ingrese su cod. sucursal" [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['cod_sucursal'].hasError('required')">Debe ingresar el cod. sucursal
+                            </mat-error>
+                        </mat-form-field>
+
+                        <app-my-slide-togle class="w-90 px-2" [dis]="dis" txtTitulo="Casa Matriz" txtTrue="Si"
+                            txtFalse="No" [inputBoolean]="this.formularioAbs.controls['matriz'].value"
+                            (outputBolean)="this.formularioAbs.controls['matriz'].setValue($event)">
+                        </app-my-slide-togle>
+                    </div>
+
+                    <div class="flex-wrap w-180">
+                        <div>
+                            <div id="map"></div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="flex-wrap w-180">
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Calle 1</mat-label>
+                            <input matInput formControlName="calle1" type="text" placeholder="Ingrese la calle 1 de la sucursal"
+                                [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['calle1'].hasError('required')">Debe ingresar el nombre de la calle 1 de la sucursal.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Calle 2</mat-label>
+                            <input matInput formControlName="calle2" type="text" placeholder="Ingrese la calle 2 de la sucursal"
+                                [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['calle2'].hasError('required')">Debe ingresar el nombre de la calle 2 de la sucursal.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Calle 3</mat-label>
+                            <input matInput formControlName="calle3" type="text" placeholder="Ingrese la calle 3 de la sucursal"
+                                [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['calle3'].hasError('required')">Debe ingresar el nombre de la calle 3 de la sucursal
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Numero</mat-label>
+                            <input matInput formControlName="numero" type="text" placeholder="Ingrese el numero"
+                                [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['numero'].hasError('required')">Debe ingresar el numero
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex-wrap w-180">
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Nombre del Edificio</mat-label>
+                            <input matInput formControlName="edificio" type="text"
+                                placeholder="Ingrese el nombre del edificio" [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['edificio'].hasError('required')">Debe ingresar el edificio en que se encuentra la sucursal
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Piso Nª</mat-label>
+                            <input matInput formControlName="piso" type="text" placeholder="Ingrese el numero de piso"
+                                [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['piso'].hasError('required')">Debe ingresar el piso en que se encuentra la sucursal
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex-wrap w-180">
+
+                         <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Departamento Nª</mat-label>
+                            <input matInput formControlName="departamento" type="text"
+                                placeholder="Ingrese el numero departamento" [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['departamento'].hasError('required')">Debe ingresar el numero
+                                departamento de la sucursal
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-90 px-2">
+                            <mat-label>Descripción</mat-label>
+                            <input matInput formControlName="descripcion" type="text"
+                                placeholder="Ingrese su descripcion" [errorStateMatcher]="macherError">
+                            <mat-error *ngIf="f['descripcion'].hasError('required')">Debe ingresar una descripción para la sucursal
+                            </mat-error>
+                        </mat-form-field>
+
+                        &lt;!&ndash;<app-my-slide-togle [dis]="dis" formControlName="matriz" txtTitulo="Casa Matriz" txtTrue="SI" txtFalse="NO"
+                       ></app-my-slide-togle>&ndash;&gt;
+                    </div>
+
+                    <div class="flex-wrap w-180">
+                        &lt;!&ndash; <app-finder-autocomplete [dis]="dis" [columna]="['nombre']" [item]="formularioAbs.controls['barrio'].value"
+                                              [service]="serviceBarrio" placeHolder="Barrio"
+                                              [esRequerido]="false">
+                     </app-finder-autocomplete>&ndash;&gt;
+
+                        <app-finder-autocomplete class="w-90 px-2" [dis]="dis" [item]="paisSelected"
+                            [service]="paisService" placeHolder="País" (output)="seleccionaPais($event)">
+                        </app-finder-autocomplete>
+
+                        <app-finder-autocomplete class="w-90 px-2" [dis]="dis" [item]="departamentoSelected"
+                            [service]="departamentoService" [childFunction]='true' parentName='pais'
+                            childName="departamento" [parentId]="paisSelected.id" placeHolder="Departamento"
+                            (output)="seleccionaDepartamento($event)"></app-finder-autocomplete>
+
+                    </div>
+                    <div class="flex-wrap w-180">
+                        <app-finder-autocomplete class="w-90 px-2" [dis]="dis" [item]="ciudadSelected"
+                            [service]="ciudadService" [childFunction]='true' parentName='pais/departamento'
+                            childName="ciudad" [parentId]="departamentoSelected.id" placeHolder="Ciudad"
+                            (output)="seleccionaCiudad($event)"></app-finder-autocomplete>
+
+                        <app-finder-autocomplete class="w-90 px-2" [dis]="dis"
+                            [item]="this.formularioAbs.controls['barrio'].value" [service]="serviceBarrio"
+                            [childFunction]='true' parentName='pais/departamento/ciudad' childName="barrio"
+                            [parentId]="ciudadSelected.id" placeHolder="Barrio" (output)="seleccionaBarrio($event)">
+                        </app-finder-autocomplete>
+                    </div>
+
+
+                    <ng-container [ngTemplateOutlet]="usuarioRolStep" *ngIf="editar"></ng-container>
+                    <div class="w-full place-content-center grid" *ngIf="abm && !editar">
+                        <app-form-actions (primaryEmiter)="guardar()" labelBtnPrimary="Guardar"
+                            (acentEmiter)="cancelar()" (warnEmiter)="eliminar(formularioAbs.value)"
+                            [hideBtnWarn]="!editar" [submitted]="submitted">
+                        </app-form-actions>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <ng-template #usuarioRolStep>
+            <div class="form">
+                <br>
+                <div class="button-box" *ngIf="!dis && editar">
+                    <app-form-actions (primaryEmiter)="guardar()" (acentEmiter)="cancelar()"
+                        (warnEmiter)="eliminar(formularioAbs.value)" [hideBtnWarn]="!editar" [submitted]="submitted">
+                    </app-form-actions>
+                </div>
+                <div class="button-box" *ngIf="!editar">
+                    <app-form-actions (primaryEmiter)="guardar()" (acentEmiter)="cancelar()" [hideBtnAcent]="true"
+                        [hideBtnWarn]="!editar" [submitted]="submitted">
+                    </app-form-actions>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+</div>-->
+
+
+
+<div class="flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <app-form-header class="backoffice-page-header"></app-form-header>
+    <div [formGroup]="formularioAbs">
+        <div class="px-4 py-5 bg-white sm:p-6">
+            <div class="grid grid-cols-6 gap-6">
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text"
+                               placeholder="Ingrese el nombre de la sucursal" [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['nombre'].hasError('required')">Debe ingresar el nombre de la sucursal
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Nro Sucursal</mat-label>
+                        <input matInput formControlName="nro_sucursal" type="number"
+                               placeholder="Ingrese su nro sucursal" [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['nro_sucursal'].hasError('required')">Debe ingresar el nro sucursal
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Cod. Sucursal</mat-label>
+                        <input matInput formControlName="cod_sucursal" type="number"
+                               placeholder="Ingrese su cod. sucursal" [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['cod_sucursal'].hasError('required')">Debe ingresar el cod. sucursal
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <app-my-slide-togle class="w-90 px-2" [dis]="dis" txtTitulo="Casa Matriz" txtTrue="Si"
+                                        txtFalse="No" [inputBoolean]="this.formularioAbs.controls['matriz'].value"
+                                        (outputBolean)="this.formularioAbs.controls['matriz'].setValue($event)">
+                    </app-my-slide-togle>
+                </div>
+
+                <div class="col-span-6" style="z-index: 1;">
+                    <div>
+                        <div id="map"></div>
+                    </div>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Calle 1</mat-label>
+                        <input matInput formControlName="calle1" type="text" placeholder="Ingrese la calle 1 de la sucursal"
+                               [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['calle1'].hasError('required')">Debe ingresar el nombre de la calle 1 de la sucursal.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Calle 2</mat-label>
+                        <input matInput formControlName="calle2" type="text" placeholder="Ingrese la calle 2 de la sucursal"
+                               [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['calle2'].hasError('required')">Debe ingresar el nombre de la calle 2 de la sucursal.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Calle 3</mat-label>
+                        <input matInput formControlName="calle3" type="text" placeholder="Ingrese la calle 3 de la sucursal"
+                               [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['calle3'].hasError('required')">Debe ingresar el nombre de la calle 3 de la sucursal
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Numero</mat-label>
+                        <input matInput formControlName="numero" type="text" placeholder="Ingrese el numero"
+                               [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['numero'].hasError('required')">Debe ingresar el numero
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Nombre del Edificio</mat-label>
+                        <input matInput formControlName="edificio" type="text"
+                               placeholder="Ingrese el nombre del edificio" [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['edificio'].hasError('required')">Debe ingresar el edificio en que se encuentra la sucursal
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Piso Nª</mat-label>
+                        <input matInput formControlName="piso" type="text" placeholder="Ingrese el numero de piso"
+                               [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['piso'].hasError('required')">Debe ingresar el piso en que se encuentra la sucursal
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <mat-label>Departamento Nª</mat-label>
+                        <input matInput formControlName="departamento" type="text"
+                               placeholder="Ingrese el numero departamento" [errorStateMatcher]="macherError">
+                        <mat-error *ngIf="f['departamento'].hasError('required')">Debe ingresar el numero
+                            departamento de la sucursal
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+               <div class="col-span-6 sm:col-span-3">
+                   <mat-form-field appearance="outline" class="w-full px-2">
+                       <mat-label>Descripción</mat-label>
+                       <input matInput formControlName="descripcion" type="text"
+                              placeholder="Ingrese su descripcion" [errorStateMatcher]="macherError">
+                       <mat-error *ngIf="f['descripcion'].hasError('required')">Debe ingresar una descripción para la sucursal
+                       </mat-error>
+                   </mat-form-field>
+               </div>
+
+               <div class="col-span-6 sm:col-span-3">
+                   <app-finder-autocomplete  [dis]="dis" [item]="paisSelected"
+                                            [service]="paisService" placeHolder="País" (output)="seleccionaPais($event)">
+                   </app-finder-autocomplete>
+               </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <app-finder-autocomplete [dis]="dis" [item]="departamentoSelected"
+                                             [service]="departamentoService" [childFunction]='true' parentName='pais'
+                                             childName="departamento" [parentId]="paisSelected.id" placeHolder="Departamento"
+                                             (output)="seleccionaDepartamento($event)"></app-finder-autocomplete>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <app-finder-autocomplete [dis]="dis" [item]="ciudadSelected"
+                                             [service]="ciudadService" [childFunction]='true' parentName='pais/departamento'
+                                             childName="ciudad" [parentId]="departamentoSelected.id" placeHolder="Ciudad"
+                                             (output)="seleccionaCiudad($event)"></app-finder-autocomplete>
+                </div>
+
+               <div class="col-span-6 sm:col-span-3">
+                   <app-finder-autocomplete [dis]="dis"
+                                            [item]="this.formularioAbs.controls['barrio'].value" [service]="serviceBarrio"
+                                            [childFunction]='true' parentName='pais/departamento/ciudad' childName="barrio"
+                                            [parentId]="ciudadSelected.id" placeHolder="Barrio" (output)="seleccionaBarrio($event)">
+                   </app-finder-autocomplete>
+               </div>
+
+
+            </div>
+
+
+        </div>
+
+        <ng-container [ngTemplateOutlet]="usuarioRolStep" *ngIf="editar"></ng-container>
+        <div class="w-full place-content-center grid" *ngIf="abm && !editar">
+            <app-form-actions (primaryEmiter)="guardar()" labelBtnPrimary="Guardar"
+                              (acentEmiter)="cancelar()" (warnEmiter)="eliminar(formularioAbs.value)"
+                              [hideBtnWarn]="!editar" [submitted]="submitted">
+            </app-form-actions>
+        </div>
+        <ng-template #usuarioRolStep>
+            <div class="form">
+                <br>
+                <div class="w-full place-content-center grid" *ngIf="!dis && editar">
+                    <app-form-actions (primaryEmiter)="guardar()" (acentEmiter)="cancelar()"
+                                      (warnEmiter)="eliminar(formularioAbs.value)" [hideBtnWarn]="!editar" [submitted]="submitted">
+                    </app-form-actions>
+                </div>
+                <div class="w-full place-content-center grid" *ngIf="!editar">
+                    <app-form-actions (primaryEmiter)="guardar()" (acentEmiter)="cancelar()" [hideBtnAcent]="true"
+                                      [hideBtnWarn]="!editar" [submitted]="submitted">
+                    </app-form-actions>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <br>
+    <br>
+
+</div>
+
+
+<!--<div class="mt-10 sm:mt-0">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+        <div class="md:col-span-1">
+            <div class="px-4 sm:px-0">
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
+                <p class="mt-1 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
+            </div>
+        </div>
+        <div class="mt-5 md:mt-0 md:col-span-2">
+            <form action="#" method="POST">
+                <div class="shadow overflow-hidden sm:rounded-md">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
+                                <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
+                                <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>-->

@@ -1,0 +1,17 @@
+<ng-container [ngSwitch]="tipo">
+    <span *ngSwitchCase="'date'">{{ row | date: 'dd/MM/yyy'}}</span>
+    <span *ngSwitchCase="'datetime'">{{ row | date: 'dd/MM/yyy HH:mm:ss'}}</span>
+    <span *ngSwitchCase="'boolean'">
+        <!-- <mat-checkbox *ngIf="isTrue!==undefined" [checked]="isTrue" [color]="'primary'"
+                                                  [disabled]="true">
+    </mat-checkbox> -->
+        <ng-container *ngIf="isTrue!==undefined">
+            <mat-icon *ngIf="isTrue" class="green-color">check_circle</mat-icon>
+            <mat-icon *ngIf="!isTrue" class="red-color">cancel</mat-icon>
+        </ng-container>
+    </span>
+
+    <span *ngSwitchCase="'currency'">{{ row | currency:'PYG':'Gs. ' }}</span>
+    <span *ngSwitchCase="'slice'">{{ row | slice:options.sliceInicio:options.sliceFin }}</span>
+    <span *ngSwitchDefault>{{row}}</span>
+</ng-container>

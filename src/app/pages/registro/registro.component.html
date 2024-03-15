@@ -1,0 +1,270 @@
+<mat-toolbar class="mat-elevation-z4">
+
+    <button mat-icon-button routerLink="../login">
+        <mat-icon color="accent">arrow_back</mat-icon>
+    </button>
+
+    <img src="../../../assets/img/logo-fraccionate.svg" class="logo" alt="">
+
+    <!-- espacio intermedio -->
+    <span class="toolbar-space"></span>
+
+    <!-- espacio intermedio -->
+    <span class="toolbar-space"></span>
+
+    <!-- menu superior derecho -->
+    <button mat-button color="accent" routerLink="../login">
+        Iniciar Sesión
+    </button>
+
+</mat-toolbar>
+
+<br><br><br>
+<img fxShow.xs="false" fxShow.sm="false" [ngClass.md]="{'img-logo-mini': true}" class="g-fraccionada-outline"
+    src="../../assets/img/g-outline-fraccionada.png">
+
+
+<div fxLayout="row" fxLayoutAlign="space-around center">
+    <h2>Complete el formulario de registro para Comercio</h2>
+</div>
+
+<br>
+
+<div class="pagina" fxLayout="row" fxLayoutAlign="space-around center">
+
+    <mat-card>
+        <mat-stepper linear>
+
+            <mat-step [stepControl]="formComercio" label="Registro del Comercio">
+
+                <br>
+
+                <div [formGroup]="formComercio" class="form">
+                    <div>
+
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Nombre del comercio</mat-label>
+                            <input formControlName="nombre" matInput placeholder="Nombre del comercio" required>
+                            <mat-error *ngIf="formComercio.controls['nombre']?.hasError('required')">
+                                Debe ingresar el nombre del comercio</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Teléfono</mat-label>
+                            <input formControlName="comercioTelefono" matInput placeholder="Teléfono" required>
+                            <mat-error *ngIf="formComercio.controls['comercioTelefono']?.hasError('required')">
+                                Debe ingresar el teléfono del comercio</mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div>
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Email de Comercio</mat-label>
+                            <input formControlName="comercioEmail" matInput placeholder="Email de Comercio" required>
+                            <mat-error *ngIf="formComercio.controls['comercioEmail']?.hasError('required')">
+                                Debe ingresar el email del comercio</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Sitio o Página Web</mat-label>
+                            <input formControlName="web" matInput placeholder="Sitio Web. Ej: www.misitio.com.py">
+                            <mat-error *ngIf="formComercio.controls['web']?.hasError('required')">
+                                Debe ingresar la página web del comercio</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Página de Facebook</mat-label>
+                            <input formControlName="facebook" matInput placeholder="Ejemplo: www.facebook.com/mitienda">
+                            <!-- <mat-error *ngIf="formComercio.controls['web']?.hasError('required')">
+                                Debe ingresar la página web del comercio</mat-error> -->
+                        </mat-form-field>
+
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Página de Instagram</mat-label>
+                            <input formControlName="instagram" matInput placeholder="Ejemplo: @mitienda">
+                            <!-- <mat-error *ngIf="formComercio.controls['web']?.hasError('required')">
+                                Debe ingresar la página web del comercio</mat-error> -->
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Página de Twitter</mat-label>
+                            <input formControlName="twitter" matInput placeholder="Ejemplo: www.twitter.com/mitienda">
+                            <!-- <mat-error *ngIf="formComercio.controls['web']?.hasError('required')">
+                                Debe ingresar la página web del comercio</mat-error> -->
+                        </mat-form-field>
+
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Tipo de comercio</mat-label>
+                            <mat-select class="select-blanco dark" formControlName="comercioTipoId" required>
+                                <mat-option [value]="e.id" *ngFor="let e of comercioTipoList">
+                                    {{ e.nombre }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formComercio.controls['comercioTipoId']?.hasError('required')">
+                                Debe seleccionar el tipo de comercio</mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div>
+
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>RUC</mat-label>
+                            <input formControlName="ruc" matInput placeholder="RUC Comercio" required>
+                            <mat-error *ngIf="formComercio.controls['ruc']?.hasError('required')">
+                                Debe ingresar el RUC del comercio</mat-error>
+                        </mat-form-field>
+
+                        <div class="form-field">
+
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div fxLayout="column" fxLayoutAlign="center center">
+
+                        <button mat-raised-button color="accent" matStepperNext>
+                            Siguiente
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </mat-step>
+
+            <mat-step [stepControl]="formUsuario" label="Mis datos">
+
+                <br>
+
+                <div class="form">
+
+                    <div [formGroup]="formUsuario">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombrePersona" type="text" placeholder="Ingrese su nombre">
+                            <mat-error *ngIf="formUsuario.controls['nombrePersona'].hasError('required')">Debe ingresar
+                                el nombre del
+                                usuario.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Apellido</mat-label>
+                            <input matInput formControlName="apellidoPersona" type="text"
+                                placeholder="Ingrese su apellido">
+                            <mat-error *ngIf="formUsuario.controls['apellidoPersona'].hasError('required')">Debe
+                                ingresar el apellido del
+                                usuario.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div [formGroup]="formUsuario">
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>N° Documento</mat-label>
+                            <input formControlName="usuario" matInput placeholder="Ingrese su número de documento">
+                            <mat-error *ngIf="formUsuario.controls['usuario']?.hasError('required')">
+                                Debe ingresar su N° de documento</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Teléfono</mat-label>
+                            <input formControlName="telefono" matInput placeholder="Teléfono" required>
+                            <mat-error *ngIf="formUsuario.controls['telefono']?.hasError('required')">
+                                Debe ingresar el teléfono</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div [formGroup]="formUsuario">
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input formControlName="email" matInput placeholder="Email">
+                            <mat-error *ngIf="formUsuario.controls['email']?.hasError('required')">
+                                Debe ingresar el email</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha de Nacimiento</mat-label>
+                            <input formControlName="fechaNacimiento" #fecha matInput [matDatepicker]="picker" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="formUsuario.controls['fechaNacimiento']?.hasError('required')">
+                                Debe ingresar la fecha de nacimiento</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div [formGroup]="repForm">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Contraseña</mat-label>
+                            <input #new formControlName="password" matInput [type]="hidePass ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hidePass = !hidePass"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
+                                <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error>
+                                <div *ngFor="let e of errorsPassMsg">
+                                    <span
+                                        *ngIf="repForm.get('password')?.hasError(e.type) && (repForm.get('password')?.dirty || repForm.get('password')?.touched)">
+                                        {{ e.message }}
+                                    </span>
+                                </div>
+                            </mat-error>
+
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Repetir contraseña</mat-label>
+                            <input #rep formControlName="passwordRep" matInput
+                                [type]="hideRepeat ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hideRepeat = !hideRepeat"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeat">
+                                <mat-icon>{{hideRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error>
+                                <div *ngFor="let e of errorsRepMsg">
+                                    <span
+                                        *ngIf="(repForm.get('passwordRep')?.hasError(e.type) || repForm.hasError(e.type)) && (repForm.get('passwordRep')?.dirty || repForm.get('passwordRep')?.touched)">
+                                        {{ e.message }}
+                                    </span>
+                                </div>
+                            </mat-error>
+
+                        </mat-form-field>
+                    </div>
+
+                    <br>
+
+                    <div fxLayout="column" fxLayoutAlign="center center">
+
+                        <mat-checkbox color="accent" #aceptarTerminos class="example-margin">
+                            <span>He leído y acepto los </span>
+<!--                            <span class="terminos" > <b> Terminos y Condiciones</b></span>-->
+                          <a class="terminos" href="{{urlTerminosCondiciones}}" target="_blank"><b>Terminos y Condiciones</b></a>
+                        </mat-checkbox>
+
+                        <br>
+                        <br>
+
+                        <button mat-raised-button color="accent" (click)="confirmarRegistro(aceptarTerminos.checked)">
+                            Comenzar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </mat-step>
+
+        </mat-stepper>
+    </mat-card>
+
+
+</div>

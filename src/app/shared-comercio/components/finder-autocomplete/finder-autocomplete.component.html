@@ -1,0 +1,35 @@
+<mat-form-field class="col-12 px-2" appearance="outline">
+  <mat-label>
+    {{placeHolder}}
+  </mat-label>
+  <input type="text" [placeholder]="dis?placeHolder: 'Busque y/o seleccione'" matInput
+         class="example-full-width"
+         name='registro'
+         autocomplete="off"
+         [matAutocomplete]="auto" [formControl]="formulario" (keyup)="activarFiltro()"
+         [errorStateMatcher]="macherError"
+         *ngIf="esRequerido"
+  />
+  <input type="text" [placeholder]="dis?placeHolder: 'Busque y/o seleccione'" matInput
+         class="example-full-width"
+         name='registro'
+         autocomplete="off"
+         [matAutocomplete]="auto" [formControl]="formulario" (keyup)="activarFiltro()"
+         *ngIf="!esRequerido"/>
+  <mat-icon *ngIf="!dis && !btnAgregar" matSuffix aria-label="Buscador">search</mat-icon>
+  <button mat-mini-fab matSuffix mat-icon-button aria-label="Agregar" [matTooltip]="agregarToolTipText"
+          *ngIf="btnAgregar && !dis" (click)="agregar()" [disabled]="submit">
+    <mat-icon>add</mat-icon>
+  </button>
+  <mat-error *ngIf="formulario.invalid && this.esRequerido">
+    Debe seleccionar un item.
+  </mat-error>
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                    (optionSelected)="onSelected($event)">
+    <!--                    (optionSelected)="onSelected($event)"  (closed)="onClose()">-->
+    <mat-option *ngFor="let item of (filtro | async)" [value]="item" [hidden]="_hideAutocomplete">
+      <span>{{ displayFn(item)}}</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+

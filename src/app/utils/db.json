@@ -1,0 +1,54 @@
+{
+    "productos": [
+        { "id": "11", "nombre": "pilsen'i 340cc",  "descripcion": "pilsen'i normal 340cc botellita", "codigo": "cervp340", "precioVenta": 6000 },
+        { "id": "22", "nombre": "pilsen'i nande la roja 340cc",  "descripcion": "pilsen'i nande la roja 340cc botellita", "codigo": "cervpnlr340", "precioVenta": 6000 },
+        { "id": "34", "nombre": "brahma 340cc",  "descripcion": "brahma 340cc botellita", "codigo": "cervb340", "precioVenta": 6000 },
+        { "id": "39", "nombre": "munich royal 330cc",  "descripcion": "munich royal 330cc botellita", "codigo": "cervmr330", "precioVenta": 4000 },
+        { "id": "16", "nombre": "sajonia 330cc",  "descripcion": "sajonia 330cc botellita", "codigo": "cervp330", "precioVenta": 15000 },
+        { "id": "24", "nombre": "kunstmann 330cc miel",  "descripcion": "kunstmann 330cc botellita miel", "codigo": "cervkm330", "precioVenta": 15000 },
+        { "id": "22", "nombre": "kunstmann 330cc torobayo",  "descripcion": "kunstmann 330cc botellita torobayo", "codigo": "cervkt330", "precioVenta": 15000 },
+        { "id": "31", "nombre": "kunstmann 330cc sin filtrar",  "descripcion": "kunstmann 330cc botellita sin filtrar", "codigo": "cervksf330", "precioVenta": 15000 },
+        { "id": "17", "nombre": "paulaner salvator 330cc",  "descripcion": "paulaner 330cc salvator", "codigo": "cervp330", "precioVenta": 12000 },
+        { "id": "18", "nombre": "coronita 250cc",  "descripcion": "coronita 250cc botellita", "codigo": "cervcor250", "precioVenta": 8000 },
+        { "id": "33", "nombre": "coronita 355cc",  "descripcion": "coronita 350cc botellita", "codigo": "cervcor355", "precioVenta": 12000 },
+        { "id": "41", "nombre": "sol 330cc",  "descripcion": "sol 330cc botellita", "codigo": "cervsol330", "precioVenta": 10000 },
+        { "id": "28", "nombre": "miller high life 355cc",  "descripcion": "miller high life 355cc botellita", "codigo": "cervmhl350", "precioVenta": 10000 },
+        { "id": "4", "nombre": "heineken 250cc",  "descripcion": "heineken 250cc botellita", "codigo": "cervhk250", "precioVenta": 7500 },
+        { "id": "45", "nombre": "heineken 330cc",  "descripcion": "heineken 330cc botellita", "codigo": "cervhk330", "precioVenta": 9000 },
+        { "id": "17", "nombre": "paulaner salvator 330cc",  "descripcion": "paulaner 330cc salvator", "codigo": "cervp330", "precioVenta": 12000 },
+        { "id": "18", "nombre": "coronita 250cc",  "descripcion": "coronita 250cc botellita", "codigo": "cervcor250", "precioVenta": 8000 },
+        { "id": "33", "nombre": "coronita 355cc",  "descripcion": "coronita 350cc botellita", "codigo": "cervcor355", "precioVenta": 12000 },
+        { "id": "41", "nombre": "sol 330cc",  "descripcion": "sol 330cc botellita", "codigo": "cervsol330", "precioVenta": 10000 },
+        { "id": "28", "nombre": "miller high life 355cc",  "descripcion": "miller high life 355cc botellita", "codigo": "cervmhl350", "precioVenta": 10000 },
+        { "id": "4", "nombre": "heineken 250cc",  "descripcion": "heineken 250cc botellita", "codigo": "cervhk250", "precioVenta": 7500 },
+        { "id": "45", "nombre": "heineken 330cc",  "descripcion": "heineken 330cc botellita", "codigo": "cervhk330", "precioVenta": 9000 }
+    ],
+    "personas": [
+        { "id": "1", "nombre": "nicolas javier", "apellido": "lopez", "celular": "0972213929" },
+        { "id": "2", "nombre": "hernan federico", "apellido": "lopez", "celular": "0981991765" },
+        { "id": "3", "nombre": "laura patricia", "apellido": "calderon duarte", "celular": "0971436629" },
+        { "id": "4", "nombre": "marcelo", "apellido": "rodriguez martinez", "celular": "0991433981" }
+    ],
+    "productos-pag": {
+        "data": [
+            { "id": "11", "nombre": "pilsen'i 340cc",  "descripcion": "pilsen'i normal 340cc botellita", "codigo": "cervp340", "precioVenta": 6000 },
+            { "id": "22", "nombre": "pilsen'i nande la roja 340cc",  "descripcion": "pilsen'i nande la roja 340cc botellita", "codigo": "cervpnlr340", "precioVenta": 6000 },
+            { "id": "34", "nombre": "brahma 340cc",  "descripcion": "brahma 340cc botellita", "codigo": "cervb340", "precioVenta": 6000 },
+            { "id": "39", "nombre": "munich royal 330cc",  "descripcion": "munich royal 330cc botellita", "codigo": "cervmr330", "precioVenta": 4000 },
+            { "id": "16", "nombre": "sajonia 330cc",  "descripcion": "sajonia 330cc botellita", "codigo": "cervp330", "precioVenta": 15000 },
+            { "id": "24", "nombre": "kunstmann 330cc miel",  "descripcion": "kunstmann 330cc botellita miel", "codigo": "cervkm330", "precioVenta": 15000 },
+            { "id": "22", "nombre": "kunstmann 330cc torobayo",  "descripcion": "kunstmann 330cc botellita torobayo", "codigo": "cervkt330", "precioVenta": 15000 },
+            { "id": "31", "nombre": "kunstmann 330cc sin filtrar",  "descripcion": "kunstmann 330cc botellita sin filtrar", "codigo": "cervksf330", "precioVenta": 15000 },
+            { "id": "17", "nombre": "paulaner salvator 330cc",  "descripcion": "paulaner 330cc salvator", "codigo": "cervp330", "precioVenta": 12000 },
+            { "id": "18", "nombre": "coronita 250cc",  "descripcion": "coronita 250cc botellita", "codigo": "cervcor250", "precioVenta": 8000 },
+            { "id": "33", "nombre": "coronita 355cc",  "descripcion": "coronita 350cc botellita", "codigo": "cervcor355", "precioVenta": 12000 },
+            { "id": "41", "nombre": "sol 330cc",  "descripcion": "sol 330cc botellita", "codigo": "cervsol330", "precioVenta": 10000 },
+            { "id": "28", "nombre": "miller high life 355cc",  "descripcion": "miller high life 355cc botellita", "codigo": "cervmhl350", "precioVenta": 10000 },
+            { "id": "4", "nombre": "heineken 250cc",  "descripcion": "heineken 250cc botellita", "codigo": "cervhk250", "precioVenta": 7500 },
+            { "id": "45", "nombre": "heineken 330cc",  "descripcion": "heineken 330cc botellita", "codigo": "cervhk330", "precioVenta": 9000 }
+        ],
+        "count": 15,
+        "page": 1,
+        "limit": 10
+    }
+}

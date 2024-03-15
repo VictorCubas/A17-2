@@ -1,0 +1,103 @@
+<app-loader></app-loader>
+<div class="login-area">
+
+    <img fxShow.xs="false" fxShow.sm="false" class="img-logo" [ngClass.md]="{'img-logo-mini': true}" src="../../assets/img/logo-fraccionate.svg">
+
+    <!-- background -->
+    <!-- <div class="img-top"></div> -->
+    <img fxShow.xs="false" fxShow.sm="false" [ngClass.md]="{'img-logo-mini': true}" class="g-fraccionada-outline" src="../../assets/img/g-outline-fraccionada.png">
+
+    <img fxShow.xs="false" fxShow.sm="false" [ngClass.md]="{'img-logo-mini': true}" class="g-fraccionada" src="../../assets/img/g-fraccionada.png">
+
+    <div class="centered mat-elevation-z4">
+
+        <mat-card>
+
+            <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+                <mat-card-title>
+                    Iniciar Sesión
+                </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content fxLayout="row" fxLayoutAlign="space-around center">
+
+                <div fxLayout="column" fxLayoutAlign="center center" [formGroup]="form">
+
+                    <br>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-form-field appearance="outline">
+                            <mat-label>N° Documento</mat-label>
+                            <input matInput formControlName="username" type="text" placeholder="N° documento">
+                            <mat-error>
+                                <div *ngFor="let e of usuarioErrorsMsg">
+                                    <span
+                                        *ngIf="form.get('username')?.hasError(e.type) && (form.get('username')?.dirty || form.get('username')?.touched)">
+                                        {{ e.message }}
+                                    </span>
+                                </div>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <br>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput formControlName="password" [type]="hideCurrent ? 'password' : 'text'"
+                                placeholder="Contraseña" (keyup.enter)="login()">
+                            <button mat-icon-button matSuffix (click)="hideCurrent = !hideCurrent"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideCurrent">
+                                <mat-icon color="accent">{{hideCurrent ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error>
+                                <div *ngFor="let e of passwordErrorsMsg">
+                                    <span
+                                        *ngIf="form.get('password')?.hasError(e.type) && (form.get('password')?.dirty || form.get('password')?.touched)">
+                                        {{ e.message }}
+                                    </span>
+                                </div>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <br>
+
+                    <div class="box-button" fxLayout="column" fxLayoutAlign="space-between center">
+                        <!-- <button mat-raised-button color="accent" (click)="login()" [disabled]="form.invalid">
+                            <mat-icon>person</mat-icon>
+                            Iniciar sesión
+                        </button> -->
+                        <button mat-raised-button color="warn" (click)="login()" [disabled]="form.invalid">
+                            <mat-icon>local_mall</mat-icon>
+                            Iniciar como comercio
+                        </button>
+                        <button mat-button color="warn">
+                            <mat-icon>security</mat-icon>
+                            Recuperación de cuenta
+                        </button>
+                    </div>
+
+                    <div>
+                        <br>
+                        <h3>¿Tu comercio aun no tiene cuenta?</h3>
+                    </div>
+
+                    <div class="box-button" fxLayout="column" fxLayoutAlign="space-between center">
+                        <button mat-button color="accent" routerLink="../registro">
+                            <mat-icon>store</mat-icon>
+                            Registrar mi comercio
+                        </button>
+                    </div>
+
+                </div>
+            </mat-card-content>
+
+
+
+        </mat-card>
+
+
+
+    </div>
+</div>

@@ -1,0 +1,131 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+
+  <!-- Header -->
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <div class="text-lg font-medium">Datos de compra</div>
+    <button mat-icon-button [tabIndex]="-1" (click)="close()">
+      <mat-icon class="text-current" [svgIcon]="'mat_outline:x'"></mat-icon>
+    </button>
+  </div>
+
+    <div>
+        <div [formGroup]="construirFormGroup()">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+                <div>
+                    <h4 class="px-2" >Nombre(s)</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="nombre" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div >
+                    <h4 class="px-2">Apellido(s)</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="apellido" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <h4 class="px-2">Nro Documento</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="documento_nro" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div >
+                    <h4 class="px-2">Celular</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="celular_nro" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div >
+                    <h4 class="px-2">Correo</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="email" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="flex justify-center">
+                <div mat-dialog-actions>
+                    <button mat-raised-button [mat-dialog-close] color="primary">
+                        Cerrar
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<!--
+<div class="fixed inset-0 sm:static sm:inset-auto flex flex-col sm:min-w-90 sm:w-90 sm:rounded-2xl overflow-hidden shadow-lg">
+
+    &lt;!&ndash; Header &ndash;&gt;
+    <div class="flex shrink-0 items-center py-4 pr-4 pl-6 bg-primary text-on-primary">
+        <div class="sm:hidden -ml-1 mr-3">
+            <button mat-icon-button [tabIndex]="-1" (click)="close()">
+                <mat-icon class="text-current" [svgIcon]="'mat_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <div class="text-lg font-medium leading-10">Datos de compra</div>
+    </div>
+
+    &lt;!&ndash; Content &ndash;&gt;
+    <div class="relative flex flex-col flex-auto sm:max-h-120 divide-y overflow-y-auto bg-card">
+        <div [formGroup]="construirFormGroup()">
+            <div >
+                <div>
+                    <h4 class="px-2" >Nombre(s)</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="nombre" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div >
+                    <h4 class="px-2">Apellido(s)</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="apellido" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <h4 class="px-2">Nro Documento</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="documento_nro" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div >
+                    <h4 class="px-2">Celular</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="celular_nro" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div >
+                    <h4 class="px-2">Correo</h4>
+                    <mat-form-field appearance="outline" class="w-full px-2">
+                        <input matInput formControlName="email" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="flex justify-center">
+                <div mat-dialog-actions>
+                    <button mat-raised-button [mat-dialog-close] color="primary">
+                        Cerrar
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->

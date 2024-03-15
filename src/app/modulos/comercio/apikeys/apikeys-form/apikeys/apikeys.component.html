@@ -1,0 +1,218 @@
+<!-- <app-form-header class="backoffice-page-header"></app-form-header> -->
+
+<br>
+<mat-card style="min-width: 80vw">
+  <div class="form-box">
+    <form [formGroup]="form" fxLayout="column" fxLayoutAlign="space-evenly stretch" class="form">
+      <mat-tab-group (selectedTabChange)="alertaProduccion($event)">
+        <mat-tab label="Test">
+
+          <div class="pb-4">
+            <span class="text-2xl">Ambiente de test.</span>
+            <div>
+              <span class="pr-4">Apto para pruebas y desarrollo.</span>
+            </div>
+          </div>
+
+          <div fxLayout="column">
+
+            <div fxLayout="column" fxFlex="95">
+              <h4>Código</h4>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="codigo" type="text" readonly>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['codigo'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="95">
+              <div fxLayout="row">
+                <div fxFlex="95">
+                  <h4>Api Key</h4>
+                </div>
+                <div>
+                  <button mat-button color="warn" (click)="confirmarReseteo('TEST')">
+                    <mat-icon>autorenew</mat-icon>
+                    Cambiar Key
+                  </button>
+                </div>
+              </div>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="api_key_test" type="text" readonly>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['api_key_test'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="95">
+              <h4>Url</h4>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="url_test" type="text" readonly>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['url_test'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="95">
+              <div fxLayout="row">
+                <div fxFlex="95">
+                  <h4>Public Key</h4>
+                </div>
+                <div>
+                  <button mat-button color="warn" (click)="openDialog('Test')">
+                    <mat-icon>add_circle_outline</mat-icon>
+                    Registrar Public key
+                  </button>
+                </div>
+              </div>
+              <mat-form-field appearance="outline">
+                <!--                <input matInput  formControlName="public_key_test"type="text" readonly>-->
+                <textarea matInput formControlName="public_key_test" cdkTextareaAutosize cdkAutosizeMinRows="8"
+                  readonly></textarea>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['public_key_test'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+                <!--                <button mat-stroked-button color="primary" (click)="openDialog('Test')">Registrar Public key</button>-->
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="95">
+              <div fxLayout="row">
+                <div fxFlex="95">
+                  <h4>Url Notificación</h4>
+                </div>
+                <div>
+                  <button mat-button color="warn" (click)="openDialog('NotificacionTest')">
+                    <mat-icon>add_circle_outline</mat-icon>
+                    Registrar Url
+                  </button>
+                </div>
+              </div>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="url_notificacion_test" type="text" readonly>
+                <mat-hint align="start">La URL sirve para recibir notificaciones vía JSON de compras realizadas por
+                  clientes en el comercio </mat-hint>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['url_notificacion_test'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </mat-tab>
+        <mat-tab label="Producción">
+
+
+          <div class="pb-4">
+            <span class="text-2xl">Ambiente de producción.</span>
+            <div>
+              <span class="pr-4 text-red-500">Atención, proceda con cuidado.</span>
+              <mat-slide-toggle labelPosition="before" #editar>Activar edición</mat-slide-toggle>
+            </div>
+          </div>
+
+          <div fxLayout="column">
+
+            <div fxLayout="column" fxFlex="95">
+              <h4>Código</h4>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="codigo" type="text" readonly>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['codigo'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="95">
+              <div fxLayout="row">
+                <div fxFlex="95">
+                  <h4>Api Key</h4>
+                </div>
+                <div>
+                  <button mat-button color="warn" (click)="confirmarReseteo('PRODUCTION')" [disabled]="!editar.checked">
+                    <mat-icon>autorenew</mat-icon>
+                    Cambiar Key
+                  </button>
+                </div>
+              </div>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="api_key_production" type="text" readonly>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['api_key_production'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="95">
+              <h4>Url</h4>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="url_production" type="text" readonly>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['url_production'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="95">
+
+              <div fxLayout="row">
+                <div fxFlex="95">
+                  <h4>Public Key</h4>
+                </div>
+                <div>
+                  <button mat-button color="warn" (click)="openDialog('Producción')" [disabled]="!editar.checked">
+                    <mat-icon>add_circle_outline</mat-icon>
+                    Registrar Public key
+                  </button>
+                </div>
+              </div>
+              <mat-form-field appearance="outline">
+                <textarea matInput formControlName="public_key_production" cdkTextareaAutosize cdkAutosizeMinRows="8"
+                  readonly></textarea>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['public_key_production'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="95">
+              <div fxLayout="row">
+                <div fxFlex="95">
+                  <h4>Url Notificación</h4>
+                </div>
+                <div>
+                  <button mat-button color="warn" (click)="openDialog('NotificacionProdu')" [disabled]="!editar.checked">
+                    <mat-icon>add_circle_outline</mat-icon>
+                    Registrar Url
+                  </button>
+                </div>
+              </div>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="url_notificacion_prod" type="text" readonly>
+                <mat-hint align="start">La URL sirve para recibir notificaciones vía JSON de compras realizadas por
+                  clientes en el comercio </mat-hint>
+                <button mat-icon-button matSuffix (click)="copyText(this.form.controls['url_notificacion_prod'].value)"
+                  matTooltip="Copiar Texto">
+                  <mat-icon color="accent">content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
+  </div>
+</mat-card>

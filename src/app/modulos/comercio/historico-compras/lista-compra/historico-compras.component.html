@@ -1,0 +1,56 @@
+<div class="flex flex-col max-w-280 md:min-w-140 max-h-screen -m-6">
+
+  <!-- Header -->
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <div class="text-lg font-medium">Productos comprados: {{ data.carrito.length }}{{ data.comercio ? ' | ' +
+      data.comercio : '' }}</div>
+    <button mat-icon-button [tabIndex]="-1" (click)="close()">
+      <mat-icon class="text-current" [svgIcon]="'mat_outline:x'"></mat-icon>
+    </button>
+  </div>
+
+    <div class="grid overflow-auto">
+        <table mat-table [dataSource]="dataSource" matSort matSortActive="codigo">
+            <ng-container matColumnDef="codigo">
+                <th class="p-3" mat-header-cell *matHeaderCellDef> Codigo </th>
+                <td class="p-3" mat-cell *matCellDef="let e"> {{e.codigo}} </td>
+                <td class="p-3" mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="descripcion">
+                <th class="p-3" mat-header-cell *matHeaderCellDef> Descripción </th>
+                <td class="p-3" mat-cell *matCellDef="let e"> {{e.descripcion}} </td>
+                <td class="p-3" mat-footer-cell *matFooterCellDef> Total Gs.</td>
+            </ng-container>
+
+            <ng-container matColumnDef="cantidad">
+                <th class="p-3" mat-header-cell *matHeaderCellDef> Cantidad </th>
+                <td class="p-3" mat-cell *matCellDef="let e"> {{e.cantidad}} </td>
+                <td class="p-3" mat-footer-cell *matFooterCellDef>{{ getCantidad() }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="monto">
+                <th class="p-3" mat-header-cell *matHeaderCellDef> Importe Gs </th>
+                <td class="p-3" mat-cell *matCellDef="let e"> {{(e.monto * e.cantidad) | number}} </td>
+                <td class="p-3" mat-footer-cell *matFooterCellDef> {{getTotalCost() | number}} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+    </div>
+
+  <br>
+
+</div>
+<br>
+<div class="flex justify-center">
+  <div mat-dialog-actions>
+    <button mat-raised-button [mat-dialog-close] color="primary">
+      Cerrar
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>

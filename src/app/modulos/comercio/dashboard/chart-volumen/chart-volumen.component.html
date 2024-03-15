@@ -1,0 +1,30 @@
+<!-- <div>
+
+    <form class="example-form" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" [formGroup]="form">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Mes</mat-label>
+            <mat-select formControlName="mes">
+                <mat-option *ngFor="let mes of chartService.meses" [value]="mes.value">
+                    {{mes.key}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Año</mat-label>
+            <mat-select formControlName="anho">
+                <mat-option *ngFor="let anho of chartService.anhos" [value]="anho">
+                    {{anho}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </form>
+</div> -->
+
+<div *ngIf="show">
+    <apx-chart [series]="chart.series" [chart]="chart.chart" [dataLabels]="chart.dataLabels"
+        [plotOptions]="chart.plotOptions" [xaxis]="chart.xaxis" [stroke]="chart.stroke" [fill]="chart.fill"
+        [yaxis]="chart.yaxis" [title]="chart.title" [tooltip]="chart.tooltip" [legend]="chart.legend"></apx-chart>
+</div>

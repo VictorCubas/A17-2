@@ -1,0 +1,28 @@
+.box-grid {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  .border-r {
+    border-right: 1px solid #ddd;
+  }
+  mat-grid-tile {
+    border-bottom: 1px solid #ddd;
+  }
+  mat-checkbox {
+    padding-right: 10px;
+  }
+  mat-card-actions {
+    text-align: center;
+  }
+}
+.box {
+  margin-top: 20px;
+}
+
+.vss {
+  height: 300px;
+  overflow: auto;
+}
+
+.color-white {
+  color: #fff;
+}

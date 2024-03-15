@@ -1,0 +1,12 @@
+<!-- Button -->
+<button
+    mat-icon-button
+    [matTooltip]="tooltip || 'Alternar pantalla completa'"
+    (click)="toggleFullscreen()">
+    <ng-container [ngTemplateOutlet]="iconTpl || defaultIconTpl"></ng-container>
+</button>
+
+<!-- Default icon -->
+<ng-template #defaultIconTpl>
+    <mat-icon [svgIcon]="'mat_outline:fullscreen'"></mat-icon>
+</ng-template>

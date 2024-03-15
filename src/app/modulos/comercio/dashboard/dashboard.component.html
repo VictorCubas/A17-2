@@ -1,0 +1,263 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <div class="flex-auto border-t -mt-px pt-4 sm:pt-6 px-4">
+
+
+<!--        <div class="w-full max-w-screen-xl mx-auto p-8 border-2 rounded-[12px]">-->
+
+<!--            <div class="mb-8" *ngIf="verPanelConfiguracion">-->
+<!--                <div>-->
+<!--                    <div class="text-4xl font-extrabold tracking-tight leading-tight ng-tns-c471-46">-->
+<!--                        <div class="grid grid-cols-10">-->
+<!--                            <div class="col-span-8">-->
+<!--                                <h1>Continuar con la configuración de la cuenta</h1>-->
+<!--                            </div>-->
+<!--                            <div class="col-span-2 text-right">-->
+<!--                                <button class="portrait:hidden" mat-stroked-button [color]="'primary'"-->
+<!--                                    (click)="verPanelConfiguracion = false">-->
+<!--                                    Ocultar-->
+<!--                                    <mat-icon class="ml-2" [svgIcon]="'mat_outline:close'"></mat-icon>-->
+<!--                                </button>-->
+<!--                                <button class="landscape:hidden" mat-icon-button [color]="'primary'"-->
+<!--                                    (click)="verPanelConfiguracion = false">-->
+<!--                                    <mat-icon class="ml-2" [svgIcon]="'mat_outline:close'"></mat-icon>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="grid md:grid-cols-6 sm:grid-cols-1 mt-0.5 font-medium ng-tns-c471-46">-->
+<!--                        <div class="md:col-span-2 pt-5 sm:col-span-1">-->
+<!--                            <span>Continuar con la configuración en el punto en el que la dejaste</span>-->
+<!--                        </div>-->
+<!--                        <div class="md:col-span-4 sm:col-span-1">-->
+<!--                            <button class="fuse-mat-button-large mt-2 mx-5" mat-flat-button [color]="'primary'"-->
+<!--                                (click)="configurarComercioPage()">-->
+<!--                                Continuar configuración-->
+<!--                                <mat-icon class="ml-2" [svgIcon]="'mat_outline:arrow_forward'"></mat-icon>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div>-->
+<!--                    <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight ng-tns-c471-46">-->
+<!--                        <h1>Empezá a usar Fraccionate</h1>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+<!--            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full min-w-0">-->
+<!--                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">-->
+<!--                    <div class="items-start justify-between">-->
+<!--                        <div class="text-lg font-medium tracking-tight leading-6">-->
+<!--                            Solicitá un fraccionamiento-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <button class="fuse-mat-button-large" mat-flat-button [color]="'primary'">-->
+<!--                                Iniciar-->
+<!--                                <mat-icon class="ml-2" [svgIcon]="'mat_outline:arrow_forward'"></mat-icon>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col items-center mt-2">-->
+<!--                        <br>-->
+<!--                        <div class="text-5xl sm:text-5xl font-bold tracking-tight leading-none text-blue-500"-->
+<!--                            [ngClass]="{'sm:text-8xl': resumenList[0].valor === 0}">-->
+
+<!--                            <img class="mt-10"-->
+<!--                                src="https://thumbs.dreamstime.com/b/manos-y-rompecabezas-del-dinero-46003674.jpg"-->
+<!--                                alt="">-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">-->
+<!--                    <div class="items-start justify-between">-->
+<!--                        <div class="text-lg font-medium tracking-tight leading-6">-->
+<!--                            Pagá la cuota de tu fraccionamiento en curso-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <button class="fuse-mat-button-large" mat-flat-button [color]="'primary'">-->
+<!--                                Iniciar-->
+<!--                                <mat-icon class="ml-2" [svgIcon]="'mat_outline:arrow_forward'"></mat-icon>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col items-center mt-2">-->
+<!--                        <br>-->
+<!--                        <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500">-->
+<!--                            <img src="https://us.123rf.com/450wm/liravega258/liravega2581706/liravega258170600009/79516565-calendario-financiero-presupuesto-mensual-que-planea-dise%C3%B1o-plano-del-ejemplo-del-vector-dise%C3%B1o-de-p.jpg?ver=6"-->
+<!--                                alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">-->
+<!--                    <div class="items-start justify-between">-->
+<!--                        <div class="text-lg font-medium tracking-tight leading-6">-->
+<!--                            Integrá nuestro entorno de pruebas-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <button class="fuse-mat-button-large mt-2" mat-flat-button [color]="'primary'">-->
+<!--                                Ver documentación-->
+<!--                                <mat-icon class="ml-2" [svgIcon]="'mat_outline:description'"></mat-icon>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="flex flex-col items-center mt-2">-->
+<!--                        <br>-->
+<!--                        <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500"-->
+<!--                            style="border: solid 2px gray">-->
+<!--                            <img src="./../../../../assets/images/content/3_frac_mini.png" alt="">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="w-full max-w-screen-xl mx-auto">
+
+            <br>
+
+            <mat-tab-group class="sm:px-2" [animationDuration]="'0'">
+
+                <mat-tab label="Inicio">
+
+                    <ng-template matTabContent>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full min-w-0">
+                            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden"
+                                [matTooltip]="resumenList[0].tooltip">
+                                <div class="flex items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6">Departamentos Vendidos</div>
+                                </div>
+                                <div class="flex flex-col items-center mt-2">
+                                    <br>
+                                    <div class="text-5xl sm:text-5xl font-bold tracking-tight leading-none text-blue-500"
+                                        [ngClass]="{'sm:text-8xl': resumenList[0].valor === 0}">
+                                        {{ resumenList[0].valor | number}}</div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden"
+                                [matTooltip]="resumenList[1].tooltip">
+                                <div class="flex items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6">
+                                        Edificios Entregados
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center mt-2">
+                                    <br>
+                                    <div
+                                        class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500">
+                                        {{ resumenList[1].valor }}</div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden"
+                                [matTooltip]="resumenList[2].tooltip">
+                                <div class="flex items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6">
+                                        Edificios en Construcción
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center mt-2">
+                                    <br>
+                                    <div class="text-5xl sm:text-5xl font-bold tracking-tight leading-none text-amber-500"
+                                        [ngClass]="{'sm:text-8xl': resumenList[0].valor === 0}">
+                                        {{ resumenList[2].valor | number }}</div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden"
+                                [matTooltip]="resumenList[3].tooltip">
+                                <div class="flex items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Unidades Entregadas</div>
+                                </div>
+                                <div class="flex flex-col items-center mt-2">
+                                    <br>
+                                    <div
+                                        class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500">
+                                        {{ resumenList[3].valor }}</div>
+                                </div>
+                            </div>
+
+
+                            <div
+                                class="px-6 sm:col-span-2 md:col-span-4 flex flex-col flex-auto pt-4 bg-card shadow rounded-2xl overflow-hidden items-center">
+
+                                <div class="text-lg font-medium tracking-tight leading-6 justify-between">
+                                    Seleccione un mes y año para cambiar los datos del tablero
+                                </div>
+                                <br>
+                                <form [formGroup]="formFilter">
+
+                                    <mat-form-field appearance="outline" class="px-4">
+                                        <mat-label>Mes</mat-label>
+                                        <mat-select formControlName="mes">
+                                            <mat-option *ngFor="let mes of chartService.meses" [value]="mes.value">
+                                                {{mes.key}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" class="px-4">
+                                        <mat-label>Año</mat-label>
+                                        <mat-select formControlName="anho">
+                                            <mat-option *ngFor="let anho of chartService.anhos" [value]="anho">
+                                                {{anho}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                </form>
+                            </div>
+                            <div
+                                class="px-6 sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                                <div class="flex flex-col sm:flex-row items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6">
+                                        Avances de obra
+                                    </div>
+                                </div>
+                                <div class="grid grid-flow-row gap-6 w-full mt-8 sm:mt-4">
+                                    <app-chart-volumen></app-chart-volumen>
+                                </div>
+                            </div>
+<!--                            <div-->
+<!--                                class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">-->
+<!--                                <div class="flex flex-col sm:flex-row items-start justify-between">-->
+<!--                                    <div class="text-lg font-medium tracking-tight leading-6">-->
+<!--                                        Cantidad de créditos por estado-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="grid grid-flow-row gap-6 w-full mt-8 sm:mt-4">-->
+<!--                                    <app-cantidad-creditos-estado></app-cantidad-creditos-estado>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div-->
+<!--                                class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">-->
+<!--                                <div class="flex flex-col sm:flex-row items-start justify-between">-->
+<!--                                    <div class="text-lg font-medium tracking-tight leading-6">-->
+<!--                                        Cantidad de fraccionamientos por plazo-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="grid grid-flow-row gap-6 w-full mt-8 sm:mt-4">-->
+<!--                                    <app-fraccionamiento-plazo></app-fraccionamiento-plazo>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div-->
+<!--                                class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">-->
+<!--                                <div class="flex flex-col sm:flex-row items-start justify-between">-->
+<!--                                    <div class="text-lg font-medium tracking-tight leading-6">-->
+<!--                                        Cantidad de solicitudes por monto-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="grid grid-flow-row gap-6 w-full mt-8 sm:mt-4">-->
+<!--                                    <app-cantidad-solicitudes-monto></app-cantidad-solicitudes-monto>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </ng-template>
+                </mat-tab>
+
+            </mat-tab-group>
+        </div>
+    </div>
+
+</div>

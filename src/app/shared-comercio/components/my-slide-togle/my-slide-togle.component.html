@@ -1,0 +1,16 @@
+<mat-slide-toggle
+    class="example-margin"
+    color="accent"
+    [checked]="inputBoolean"
+    [disabled]="dis"
+    (change)="changeChecked()">
+    <span>
+        {{txtTitulo}}
+    </span>
+    <span *ngIf="txtFalse && txtTrue">:
+        <span *ngIf="inputBoolean; else estadoT">{{txtTrue}}</span>
+        <ng-template #estadoT>
+            <span>{{txtFalse}}</span>
+        </ng-template>
+    </span>
+</mat-slide-toggle>

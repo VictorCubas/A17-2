@@ -1,0 +1,39 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+<!--    <h1 mat-dialog-title>{{miTitulo}}</h1>-->
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">{{miTitulo}}</div>
+        <button mat-icon-button [tabIndex]="-1" (click)="onNoClick()">
+            <mat-icon class="text-current" [svgIcon]="'mat_outline:x'"></mat-icon>
+        </button>
+    </div>
+
+    <div class="p-10">
+        <div [formGroup]="form" class="flex flex-col items-center">
+            <ng-template [ngIf]="mostrarInput" [ngIfElse]="miCampoInput">
+                <mat-form-field appearance="fill" class="w-160">
+                    <mat-label>Copie su clave pública aqui</mat-label>
+                    <textarea  matInput formControlName="clave" cdkTextareaAutosize cdkAutosizeMinRows="7"></textarea>
+                </mat-form-field>
+            </ng-template>
+
+            <ng-template #miCampoInput>
+                <mat-form-field appearance="fill" class="w-160">
+                    <mat-label>Ingrese la url aquí</mat-label>
+                    <input matInput formControlName="clave">
+                    <mat-hint align="start">La URL sirve para recibir notificaciones vía JSON de compras realizadas por clientes en el comercio </mat-hint>
+                </mat-form-field>
+            </ng-template>
+
+        </div>
+
+    </div>
+
+</div>
+<br>
+<div class="flex justify-center">
+    <div mat-dialog-actions>
+        <button mat-raised-button color="accent"(click)="onNoClick()">Cancelar</button>
+        <button mat-raised-button color="primary" [disabled]="!form.valid" [mat-dialog-close]="form.value" cdkFocusInitial>Guardar</button>
+    </div>
+</div>

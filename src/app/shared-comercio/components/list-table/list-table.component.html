@@ -1,0 +1,46 @@
+<!--    <div class="page-content mat-elevation-z2">-->
+<!--        <div class="table-content">-->
+<mat-card>
+  <div class="page-content">
+    <div class="">
+      <div *ngIf="mostrarFiltro">
+        <mat-form-field appearance="outline">
+          <mat-label>Filtro</mat-label>
+          <input matInput (keyup)="onSearchInput($event)" [placeholder]="filterPlaceHolder">
+        </mat-form-field>
+      </div>
+
+      <table mat-table [dataSource]="tableDataSrc" matSort class="">
+        <ng-container *ngFor="let col of tableCols">
+          <ng-container matColumnDef="{{ col.name }}">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header
+              [disabled]="col.sorteable != undefined && !col.sorteable">
+              {{ col.name | titlecase }}
+            </th>
+            <td mat-cell *matCellDef="let row" [attr.colspan]="row.length">
+              <app-list-table-row-cell [row]="getVal(row, col)" *ngIf="row!=='col-tem' " [options]="col.cellOptions">
+              </app-list-table-row-cell>
+              <mat-progress-bar *ngIf="row==='col-tem' && col.name === tableCols[0].name" mode="indeterminate">
+              </mat-progress-bar>
+            </td>
+          </ng-container>
+        </ng-container>
+        <ng-container matColumnDef="accion" *ngIf="mostrarAccion" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef>Acción</th>
+          <td mat-cell *matCellDef="let row">
+            <app-list-actions [btnOptionList]="btnOptionList" *ngIf="row!=='col-tem'" [btnVer]="btnVer" [btnEditar]="btnEditar" [btnBorrar]="btnBorrar"
+              [btnImprimir]="btnImprimir" [btnAgregar]="btnAgregar" [btnChec]="btnChec" [btnChecTitle]="btnChecTitle"
+              [btnImprimirTitle]="btnImprimirTitle" (verEmitter)="ver(row)" (editarEmitter)="editar(row)"
+              (borrarEmitter)="borrar(row)" (agregarEmitter)="agregar(row)" (checkEmitter)="check(row)"
+              (imprimirEmitter)="imprimir(row)"></app-list-actions>
+
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="_columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: _columns" @rowsAnimation></tr>
+      </table>
+    </div>
+    <mat-paginator color="accent" [pageSizeOptions]="[10, 25, 50, 100]" (page)="cargarTabl()" showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</mat-card>

@@ -1,0 +1,61 @@
+.page-content {
+  margin: 20px;
+  div {
+    min-height: 60vh;
+    max-height: 68vh;
+    overflow-y: scroll;
+
+    // height: 400px;
+    // overflow: auto;
+
+    table {
+      width: 100%;
+      min-width: 800px;
+    }
+  }
+}
+// table {
+//   width: 100%;
+//   min-width: 800px;
+// }
+
+.mat-header-cell,
+.mat-cell {
+  padding: 15px 10px !important;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+td.mat-column-acciones,
+th.mat-column-acciones {
+  width: 20px;
+  padding-left: 10px;
+  padding-right: 10px !important;
+}
+
+// para mat header y mat cell
+.mat-table-sticky:nth-child(0n+2) {
+  border-right: 1px solid #e0e0e0;
+  min-width: 120px;
+  width: 20vw;
+}
+
+.mat-table-sticky:last-child {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-input-element{
+  color: black;
+}
+
+mat-form-field-appearance-outline .mat-form-field-outline {
+  color: black;
+}
+
+mat-toolbar {
+  button {
+    margin-right: 10px;
+  }
+}

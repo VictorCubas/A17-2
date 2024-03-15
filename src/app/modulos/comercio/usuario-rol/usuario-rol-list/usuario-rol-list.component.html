@@ -1,0 +1,32 @@
+<div class="box">
+    <!-- Buscador -->
+    <mat-form-field [formGroup]="form" class="full-w" appearance="outline">
+        <mat-label>
+            Rol
+        </mat-label>
+        <input type="text" formControlName="busquedaGlobal" placeholder="Buscar rol" matInput (keyup)="search()" />
+        <mat-icon matSuffix aria-label="Buscador">search</mat-icon>
+    </mat-form-field>
+    <!-- Tabla -->
+    <div class="vss">
+        <mat-grid-list class="box-grid" cols="3" rowHeight="50px">
+            <mat-grid-tile colspan="1" class="border-r">
+                <span [ngClass]="{'color-white': edit}">Rol</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <span [ngClass]="{'color-white': edit}">Asignar Rol</span>
+            </mat-grid-tile>
+            <div *ngFor="let l of checkList">
+                <mat-grid-tile colspan="1" class="border-r">
+                    <span [ngClass]="{'color-white': edit}">
+                        {{l.nombre}}
+                    </span>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                    <mat-checkbox [checked]="l.checked" [disabled]="dis" (change)="change($event.checked, l, l.id)" color="accent"
+                    ></mat-checkbox>
+                </mat-grid-tile>
+            </div>
+        </mat-grid-list>
+    </div>
+</div>
